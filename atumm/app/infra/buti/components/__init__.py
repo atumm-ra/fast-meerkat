@@ -1,3 +1,4 @@
+from atumm.app.infra.buti.components.beanie import BeanieComponent
 from atumm.app.infra.buti.components.config import ConfigComponent
 from atumm.app.infra.buti.components.fastapi import (
     AuthJWTComponent,
@@ -14,4 +15,5 @@ app_components = [
     FastAPIMiddlewaresComponent(),
     ListenersComponent(),
     AuthJWTComponent(),
+    BeanieComponent(),
 ]

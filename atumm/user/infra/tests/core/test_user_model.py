@@ -1,7 +1,9 @@
 import unittest
+
 from faker import Faker
 
 from atumm.user.core.models import StatusEnum, UserModel
+
 
 class TestUserModel(unittest.TestCase):
     def setUp(self):
@@ -32,6 +34,7 @@ class TestUserModel(unittest.TestCase):
     def test_is_locked(self):
         self.user.lock()
         self.assertTrue(self.user.is_locked())
+
 
 if __name__ == "__main__":
     unittest.main()

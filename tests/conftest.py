@@ -1,5 +1,7 @@
 from typing import AsyncIterator
 from hypothesis import settings
+from asgi_lifespan import LifespanManager
+
 
 import httpx
 import pytest
@@ -14,7 +16,7 @@ def anyio_backend():
 
 @pytest.fixture
 async def client() -> AsyncIterator[httpx.AsyncClient]:
-    async with httpx.AsyncClient(app=app, base_url="http://testhost") as client:
+    async with httpx.AsyncClient(app=app, base_url="http://testhost") as client, LifespanManager(app):
         yield client
 
 settings(max_examples=1)

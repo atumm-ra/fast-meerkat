@@ -3,12 +3,14 @@ from unittest.mock import AsyncMock
 
 import pytest
 from hypothesis import HealthCheck, given, settings
-from hypothesis.strategies import emails, uuids, text
+from hypothesis.strategies import emails, text, uuids
 from injector import Module, singleton
 from starlette.testclient import TestClient
 
 from atumm.app.infra.hypothesis.types import passwords
 from atumm.app.infra.injector import injector
+from atumm.user.core.models import UserModel
+from atumm.user.dataproviders.beanie.models import User
 from atumm.user.entrypoints.common.schemas.jwt import RefreshTokenSchema
 from atumm.user.entrypoints.common.services import UserService
 from atumm.user.entrypoints.common.services.token import TokenService
@@ -23,7 +25,7 @@ class TestAppModule(Module):
         binder.bind(UserService, to=AsyncMock(), scope=singleton)
 
 
-class TestTokensRouter(TestCase):
+class TestTokensRouter:
     @given(user_id=uuids(), email=emails())
     @settings(
         max_examples=1, suppress_health_check=[HealthCheck.function_scoped_fixture]
@@ -51,7 +53,9 @@ class TestTokensRouter(TestCase):
         max_examples=1, suppress_health_check=[HealthCheck.function_scoped_fixture]
     )
     @pytest.mark.anyio
-    async def test_login(self, client: TestClient, email: str, password: str, device_id: str):
+    async def test_login(
+        self, client: TestClient, email: str, password: str, device_id: str
+    ):
         request = LoginRequest(email=email, password=password, device_id=device_id)
 
         response = await client.post("/api/v1/tokens/access", json=request.dict())

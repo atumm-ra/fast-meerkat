@@ -22,8 +22,9 @@ from atumm.app.infra.fastapi.middlewares import (
     AuthenticationMiddleware,
     ResponseLogMiddleware,
 )
-from atumm.user.entrypoints.rest import user_api_router
 from atumm.health.entrypoints.rest.health.routers import health_router
+from atumm.user.entrypoints.rest import user_api_router
+
 
 class FastAPIComponent(BootableComponent):
     def boot(self, store: ButiStore) -> None:

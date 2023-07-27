@@ -5,7 +5,7 @@ from pydantic import BaseSettings
 
 
 class Config(BaseSettings):
-    STAGE: str = "development"
+    STAGE: str = "dev"
     DEBUG: bool
 
     APP_HOST: str
@@ -39,7 +39,6 @@ class ProductionConfig(Config):
 
 class TestConfig(Config):
     pass
-
 
 @lru_cache
 def get_config() -> Config:

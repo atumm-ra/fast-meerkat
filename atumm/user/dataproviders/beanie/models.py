@@ -1,7 +1,4 @@
-
-
 from beanie import Document
-
 from pymongo import IndexModel
 
 from atumm.user.core.models import UserModel
@@ -18,7 +15,3 @@ class User(Document, UserModel, TimestampMixin):
             IndexModel("username", unique=True),
         ]
         is_root = True
-
-    
-
-    

@@ -26,9 +26,8 @@ class RegisterUseCase(CommandUseCase[RegisterCommand]):
         self.user_repo = user_repo
 
     async def execute(self, command: RegisterCommand):
-        # todo refactor: exceptions separation
         does_exist = await self.user_repo.find_by_email(command.email)
-        print(does_exist, flush=True)
+
         if does_exist:
             raise DuplicateEmailOrUsernameException
 

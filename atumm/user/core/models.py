@@ -1,17 +1,24 @@
-import bcrypt
 from enum import StrEnum, auto
 from typing import Optional
 from uuid import UUID, uuid4
+
+import bcrypt
 from pydantic import BaseModel, EmailStr, Field, validator
 
 from atumm.app.infra.config import get_config
+
 
 class StatusEnum(StrEnum):
     ACTIVE = auto()
     LOCKED = auto()
     DELETED = auto()
 
+
 class UserModel(BaseModel):
+    class Config:
+        bson_encoders: dict = {UUID: str}
+        arbitrary_types_allowed: bool = True
+
     id: UUID = Field(default_factory=uuid4, primary_key=True)
     email: EmailStr = Field(str)
     password: str = Field(..., min_length=8, description="The user's hashed password")
@@ -21,10 +28,10 @@ class UserModel(BaseModel):
     is_admin: bool = Field(
         False, description="Indicates if the user has admin privileges"
     )
-    salt: str = Field(default_factory=bcrypt.gensalt,description="password salt")
+    salt: str = Field(default_factory=bcrypt.gensalt, description="password salt")
     status: StatusEnum = Field(StatusEnum.ACTIVE)
     # Optional fields
-    
+
     first_name: Optional[str] = Field(
         None, min_length=1, max_length=255, description="The user's first name"
     )
@@ -32,11 +39,6 @@ class UserModel(BaseModel):
         None, min_length=1, max_length=255, description="The user's last name"
     )
     device_id: Optional[str] = Field(None)
-    
-
-    class Config:
-        bson_encoders: dict = {UUID: str}
-        arbitrary_types_allowed: bool = True
 
     @validator("password")
     def validate_password(cls, value: str) -> str:
