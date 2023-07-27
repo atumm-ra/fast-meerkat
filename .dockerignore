@@ -1,0 +1,6 @@
+.pdm-python
+.venv
+__pypackages__
+build
+requirments.txt
+.data

@@ -1,0 +1,74 @@
+[project]
+name = "fast-meerkat"
+version = "3.0.0"
+description = "An opinionated Clean Architecture App Template"
+authors = [
+    { name = "Omar", email = "omar@atumm.org" },
+]
+requires-python = ">=3.11.1,<4.0.0"
+dependencies = [
+    "uvicorn>=0.21.1",
+    "celery<6.0.0,>=5.2.7",
+    "gunicorn>=20.1.0",
+    "fastapi-event<1.0.0,>=0.1.3",
+    "pythondi<2.0.0,>=1.2.4",
+    "ujson<6.0.0,>=5.4.0",
+    "click<9.0.0,>=8.1.3",
+    "greenlet==1.1.3",
+    "redis<5.0.0,>=4.3.4",
+    "beanie>=1.18.0",
+    "ulid-py>=1.1.0",
+    "motor>=3.1.2",
+    "asyncio>=3.4.3",
+    "pymongo>=4.3.3",
+    "uvloop>=0.17.0",
+    "python-decouple>=3.8",
+    "starlette>=0.26.1",
+    "classy-fastapi>=0.4.0",
+    "fastapi>=0.95.1",
+    "pydantic[dotenv,email]>=1.10.11",
+    "asgiref>=3.6.0",
+    "injector>=0.20.1",
+    "py-bcrypt>=0.4",
+    "fastapi-jwt-auth>=0.5.0",
+    "buti @ git+https://github.com/atumm-org/buti.git@dev",
+    "python-dotenv>=1.0.0",
+]
+
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pytest.ini_options]
+mock_use_standalone_module = true
+testpaths = [
+    "tests",
+    "atumm/user/infra/tests",
+]
+
+
+[tool.pdm]
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "httpx>=0.24.0",
+    "anyio[asyncio]>=3.6.2",
+    "pytest>=7.3.1",
+    "pytest-anyio>=0.0.0",
+    "pytest-mock>=3.10.0",
+    "mock>=5.0.2",
+    "hypothesis>=6.75.3",
+    "mypy>=1.3.0",
+    "behave>=1.2.6",
+    "ssort>=0.11.6",
+    "isort>=5.12.0",
+    "black>=23.3.0",
+    "six>=1.16.0",
+    "pytest-cov>=4.1.0",
+    "faker>=19.2.0",
+]
+
+[tool.pdm.build]
+includes = []
