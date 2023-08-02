@@ -45,6 +45,7 @@ build-backend = "pdm.backend"
 mock_use_standalone_module = true
 testpaths = [
     "tests",
+    "atumm/health/infra/tests",
     "atumm/user/infra/tests",
 ]
 
