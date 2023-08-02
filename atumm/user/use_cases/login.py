@@ -1,4 +1,6 @@
-from typing import Optional
+from typing import Dict, Optional
+
+from injector import inject
 
 from atumm.app.core.use_case import Command, CommandUseCase
 from atumm.user.core.exceptions import (
@@ -6,7 +8,7 @@ from atumm.user.core.exceptions import (
     PasswordsDoNotMatchException,
     UserNotFoundException,
 )
-from atumm.user.dataproviders.beanie.repositories import UserRepo
+from atumm.user.core.repositories import AbstractUserRepo
 from atumm.user.infra.auth.tokenizer import Tokenizer
 
 
@@ -17,11 +19,12 @@ class LoginCommand(Command):
 
 
 class LoginUseCase(CommandUseCase[LoginCommand]):
-    def __init__(self, user_repo: UserRepo, tokenizer: Tokenizer):
+    @inject
+    def __init__(self, user_repo: AbstractUserRepo, tokenizer: Tokenizer):
         self.repo = user_repo
         self.tokenizer = tokenizer
 
-    async def execute(self, command: LoginCommand):
+    async def execute(self, command: LoginCommand) -> Dict[str, str]:
         user = await self.repo.find_by_email(email=command.email)
         if not user:
             raise UserNotFoundException()

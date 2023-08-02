@@ -73,7 +73,6 @@ class ListenersComponent(BootableComponent):
             app.db = await init_my_beanie()
 
     def register_exception_listeners(self, app):
-
         @app.exception_handler(RuntimeException)
         async def handle_runtime_exception(
             request: Request, exception: RuntimeException

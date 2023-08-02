@@ -17,8 +17,8 @@ class BaseWebApp:
     def __init__(self, config: Config):
         self.config = config
         self.app = FastAPI(
-            title="Savvee",
-            description="Savvee API",
+            title="Atumm User",
+            description="User API",
             version="1.0.0",
             docs_url=None if self.config.STAGE == "production" else "/docs",
             redoc_url=None if self.config.STAGE == "production" else "/redoc",

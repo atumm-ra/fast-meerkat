@@ -2,10 +2,10 @@ from beanie import init_beanie
 from buti import BootableComponent, ButiStore
 from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
-from atumm.app.infra.injector import injector
 
 from atumm.app.infra.buti.keys import ContainerKeys
 from atumm.app.infra.config import Config
+from atumm.app.infra.injector import injector
 from atumm.user.dataproviders.beanie.models import User
 
 

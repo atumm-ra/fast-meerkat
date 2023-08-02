@@ -1,4 +1,4 @@
-name: MyPy
+name: PyTest
 
 on:
   push:
@@ -8,8 +8,11 @@ on:
     branches:
       - master
 
+env:
+  STAGE: test
+
 jobs:
-  typecheck:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -31,6 +34,7 @@ jobs:
         run: |
           pdm sync -d  # Install dev dependencies
 
-      - name: Run MyPy
+      - name: Run Tests
         run: |
-          pdm run mypy ./atumm
+          echo $STAGE
+          pdm run pytest -cov --cov-report html

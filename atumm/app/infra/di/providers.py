@@ -1,9 +1,9 @@
 from typing import List
 
 from injector import Module, provider, singleton
+from motor.motor_asyncio import AsyncIOMotorClient
 
 from atumm.app.infra.config import Config, get_config
-from motor.motor_asyncio import AsyncIOMotorClient
 
 
 class AsyncMotorClientProvider(Module):
@@ -20,6 +20,4 @@ class AsyncMotorClientProvider(Module):
         return beanie_client
 
 
-app_providers: List = [
-    AsyncMotorClientProvider
-]
+app_providers: List = [AsyncMotorClientProvider]

@@ -3,6 +3,7 @@ from typing import List
 from classy_fastapi import Routable, get, post
 from fastapi import Depends, Query
 from fastapi_jwt_auth import AuthJWT
+from injector import inject
 
 from atumm.app.core.presenter import AbstractCollectionPresenter
 from atumm.app.infra.exceptions.base import RuntimeExceptionResponse
@@ -36,12 +37,12 @@ class UserController:
         return user
 
     async def get_user_info(self, auth: AuthJWT):
-        user = await self.get_user_info_use_case.execute(GetUserInfoQuery(auth=auth))
+        user = await self.get_user_info_use_case.execute(GetUserInfoQuery(auth=auth.data["sub"]))
         return user
 
     async def get_user_list(self, limit: int, prev: int):
         users = await self.get_user_list_use_case.execute(
-            GetUserListQuery(limit=limit, prev=prev)
+            GetUserListQuery(limit=limit, start=prev)
         )
         return users
 
@@ -59,12 +60,18 @@ class UserCollectionPresenter(
 
 
 class UserRouter(Routable):
-    def __init__(self):
+    @inject
+    def __init__(
+        self,
+        register: RegisterUseCase,
+        get_user_info: GetUserInfoUseCase,
+        get_user_list: GetUserListUseCase,
+    ):
         super().__init__(prefix="/users")
         self.controller = UserController(
-            RegisterUseCase(UserRepo()),
-            GetUserInfoUseCase(UserRepo()),
-            GetUserListUseCase(UserRepo()),
+            register,
+            get_user_info,
+            get_user_list,
         )
         self.presenter = UserCollectionPresenter()
 

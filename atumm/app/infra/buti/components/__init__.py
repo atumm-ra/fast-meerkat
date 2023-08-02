@@ -17,5 +17,5 @@ app_components = [
     ListenersComponent(),
     AuthJWTComponent(),
     BeanieComponent(),
-    InjectorComponent()
+    InjectorComponent(),
 ]
