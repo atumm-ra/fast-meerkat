@@ -56,8 +56,9 @@ format:
 install:
 	pdm sync
 
-test:
-	pdm run pytest --cov --cov-report html
+test:					## run tests
+	pdm run pytest --capture=no -cov --cov-report html
 
-behave:
-	pdm run behave --format=progress atumm/user/infra/behave/features
+testf:					## run test filtered by pattern
+	pdm run pytest -k $(TARGET_ARGS)
+
