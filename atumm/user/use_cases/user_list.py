@@ -5,8 +5,8 @@ from atumm.user.core.repositories import AbstractUserRepo
 
 
 class GetUserListQuery(Query):
+    start: int
     limit: int
-    prev: int
 
 
 class GetUserListUseCase(QueryUseCase[GetUserListQuery]):
@@ -15,5 +15,5 @@ class GetUserListUseCase(QueryUseCase[GetUserListQuery]):
         self.user_repo = user_repo
 
     async def execute(self, query: GetUserListQuery):
-        users = await self.user_repo.find_all(limit=query.limit)
+        users = await self.user_repo.find_all(start=query.start, limit=query.limit)
         return users

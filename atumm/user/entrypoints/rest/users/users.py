@@ -42,7 +42,7 @@ class UserController:
 
     async def get_user_list(self, limit: int, prev: int):
         users = await self.get_user_list_use_case.execute(
-            GetUserListQuery(limit=limit, prev=prev)
+            GetUserListQuery(limit=limit, start=prev)
         )
         return users
 
