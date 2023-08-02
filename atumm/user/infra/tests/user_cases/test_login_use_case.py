@@ -1,17 +1,14 @@
 from unittest.mock import AsyncMock
 
-import mock
 import pytest
 from faker import Faker
 
-from atumm.app.infra.injector import injector
 from atumm.user.core.models import UserModel
-from atumm.user.dataproviders.beanie.repositories import UserRepo
 from atumm.user.infra.auth.tokenizer import Tokenizer
 from atumm.user.use_cases.login import LoginCommand, LoginUseCase
 
 
-class TestTokensRouter:
+class TestLoginUseCase:
     faker = Faker()
 
     @pytest.mark.anyio
