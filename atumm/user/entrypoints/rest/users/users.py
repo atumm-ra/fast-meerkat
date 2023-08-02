@@ -37,7 +37,7 @@ class UserController:
         return user
 
     async def get_user_info(self, auth: AuthJWT):
-        user = await self.get_user_info_use_case.execute(GetUserInfoQuery(auth=auth))
+        user = await self.get_user_info_use_case.execute(GetUserInfoQuery(auth=auth.data["sub"]))
         return user
 
     async def get_user_list(self, limit: int, prev: int):
