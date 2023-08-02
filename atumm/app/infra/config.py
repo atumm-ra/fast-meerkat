@@ -43,7 +43,7 @@ class TestConfig(Config):
 
 @lru_cache
 def get_config() -> Config:
-    env = os.getenv("STAGE", "local")
+    env = os.getenv("STAGE", "test")
     config_type = {
         "local": LocalConfig(_env_file=".env"),
         "test": TestConfig(_env_file=".env.test"),

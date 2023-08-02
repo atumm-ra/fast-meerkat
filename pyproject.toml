@@ -48,7 +48,9 @@ testpaths = [
     "atumm/health/infra/tests",
     "atumm/user/infra/tests",
 ]
-
+env = [
+    "STAGE=test"
+]
 
 [tool.pdm]
 
