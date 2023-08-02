@@ -1,4 +1,4 @@
-name: MyPy
+name: PyTest
 
 on:
   push:
@@ -31,6 +31,6 @@ jobs:
         run: |
           pdm sync -d  # Install dev dependencies
 
-      - name: Run MyPy
+      - name: Run Tests
         run: |
-          pdm run mypy ./atumm
+          pdm run pytest -cov --cov-report html
