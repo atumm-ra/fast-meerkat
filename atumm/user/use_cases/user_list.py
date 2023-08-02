@@ -1,5 +1,6 @@
+from injector import inject
 from atumm.app.core.use_case import Query, QueryUseCase
-from atumm.user.dataproviders.beanie.repositories import UserRepo
+from atumm.user.core.repositories import AbstractUserRepo
 
 
 class GetUserListQuery(Query):
@@ -8,7 +9,8 @@ class GetUserListQuery(Query):
 
 
 class GetUserListUseCase(QueryUseCase[GetUserListQuery]):
-    def __init__(self, user_repo: UserRepo):
+    @inject
+    def __init__(self, user_repo: AbstractUserRepo):
         self.user_repo = user_repo
 
     async def execute(self, query: GetUserListQuery):

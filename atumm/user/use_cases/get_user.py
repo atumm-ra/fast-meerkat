@@ -1,4 +1,5 @@
 from fastapi_jwt_auth import AuthJWT
+from injector import inject
 
 from atumm.app.core.use_case import Query, QueryUseCase
 from atumm.user.dataproviders.beanie.models import User
@@ -13,6 +14,7 @@ class GetUserInfoQuery(Query):
 
 
 class GetUserInfoUseCase(QueryUseCase[GetUserInfoQuery]):
+    @inject
     def __init__(self, user_repo: UserRepo):
         self.user_repo = user_repo
 

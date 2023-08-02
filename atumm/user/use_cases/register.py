@@ -1,3 +1,4 @@
+from injector import inject
 from pydantic import EmailStr, Field, validator
 
 from atumm.app.core.use_case import Command, CommandUseCase
@@ -22,6 +23,7 @@ class RegisterCommand(Command):
 
 
 class RegisterUseCase(CommandUseCase[RegisterCommand]):
+    @inject
     def __init__(self, user_repo: AbstractUserRepo):
         self.user_repo = user_repo
 
