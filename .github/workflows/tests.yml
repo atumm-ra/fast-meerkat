@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  typecheck:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
