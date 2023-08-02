@@ -7,6 +7,7 @@ from atumm.app.infra.buti.components.fastapi import (
     ListenersComponent,
     RouterComponent,
 )
+from atumm.app.infra.buti.components.injector import InjectorComponent
 
 app_components = [
     ConfigComponent(),
@@ -16,4 +17,5 @@ app_components = [
     ListenersComponent(),
     AuthJWTComponent(),
     BeanieComponent(),
+    InjectorComponent()
 ]

@@ -14,7 +14,6 @@ from atumm.app.infra.fastapi.middlewares import (
 
 
 class BaseWebApp:
-    @inject
     def __init__(self, config: Config):
         self.config = config
         self.app = FastAPI(

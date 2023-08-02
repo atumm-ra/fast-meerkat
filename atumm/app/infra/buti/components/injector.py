@@ -1,13 +1,11 @@
 from buti import BootableComponent, ButiStore
 from injector import Injector
+from atumm.app.infra import injector
 
 from atumm.app.infra.buti.keys import ContainerKeys
-from atumm.user.infra.di.providers import providers_list as user_providers
-
+from atumm.app.infra.di.providers import app_providers
+from atumm.user.infra.di.providers import user_providers as user_providers
 
 class InjectorComponent(BootableComponent):
     def boot(self, store: ButiStore) -> None:
-        all_providers = user_providers + []
-
-        injector = Injector(modules=all_providers)
         store.set(ContainerKeys.injector, injector)

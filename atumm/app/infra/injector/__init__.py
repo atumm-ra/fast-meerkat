@@ -1,10 +1,7 @@
 from injector import Injector
+from atumm.user.infra.di.providers import user_providers
+from atumm.app.infra.di.providers import app_providers
 
-from atumm.user.infra.di.providers import ServicesInjectorModule, TokenizerProvider
+all_providers = user_providers + app_providers
 
-injector = Injector(
-    [
-        ServicesInjectorModule(),
-        TokenizerProvider(),
-    ]
-)
+injector = Injector(modules=all_providers)

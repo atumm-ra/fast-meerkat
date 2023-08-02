@@ -73,10 +73,6 @@ class ListenersComponent(BootableComponent):
             app.db = await init_my_beanie()
 
     def register_exception_listeners(self, app):
-        # @app.exception_handler(StarletteHTTPException)
-        # async def exception_callback(request: Request, exc: Exception):
-        #     print(print_tb(exc.__traceback__))
-        #     return JSONResponse({"detail": "test_error"}, status_code=500)
 
         @app.exception_handler(RuntimeException)
         async def handle_runtime_exception(
