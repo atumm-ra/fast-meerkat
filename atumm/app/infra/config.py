@@ -40,6 +40,7 @@ class ProductionConfig(Config):
 class TestConfig(Config):
     pass
 
+
 @lru_cache
 def get_config() -> Config:
     env = os.getenv("STAGE", "local")

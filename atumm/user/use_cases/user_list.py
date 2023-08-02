@@ -1,4 +1,5 @@
 from injector import inject
+
 from atumm.app.core.use_case import Query, QueryUseCase
 from atumm.user.core.repositories import AbstractUserRepo
 

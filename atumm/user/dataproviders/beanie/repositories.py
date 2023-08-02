@@ -1,12 +1,12 @@
 from typing import List
 
 import pymongo
+from injector import inject
+from motor.motor_asyncio import AsyncIOMotorClient
 
 from atumm.app.core.data_providers.datastore.exceptions import DuplicateKeyException
 from atumm.user.core.repositories import AbstractUserRepo
 from atumm.user.dataproviders.beanie.models import User
-from motor.motor_asyncio import AsyncIOMotorClient
-from injector import inject
 
 
 class UserRepo(AbstractUserRepo):
@@ -26,7 +26,7 @@ class UserRepo(AbstractUserRepo):
         return user
 
     async def find_by_email(self, email: str) -> User:
-        document = await self.client.db.users.find_one({'email': {'$eq': email}})
+        document = await self.client.db.users.find_one({"email": {"$eq": email}})
         return await self.client.User.find_one(User.email == email)
 
     async def find_all(self, limit: int = 12) -> List[User]:

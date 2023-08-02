@@ -1,10 +1,10 @@
 from injector import Binder, Module, provider, singleton
+from motor.motor_asyncio import AsyncIOMotorClient
 
 from atumm.app.infra.config import Config, get_config
 from atumm.user.core.repositories import AbstractUserRepo
 from atumm.user.dataproviders.beanie.repositories import UserRepo
 from atumm.user.infra.auth.tokenizer import Tokenizer
-from motor.motor_asyncio import AsyncIOMotorClient
 
 
 class TokenizerProvider(Module):

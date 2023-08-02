@@ -61,7 +61,12 @@ class UserCollectionPresenter(
 
 class UserRouter(Routable):
     @inject
-    def __init__(self, register: RegisterUseCase, get_user_info: GetUserInfoUseCase, get_user_list: GetUserListUseCase):
+    def __init__(
+        self,
+        register: RegisterUseCase,
+        get_user_info: GetUserInfoUseCase,
+        get_user_list: GetUserListUseCase,
+    ):
         super().__init__(prefix="/users")
         self.controller = UserController(
             register,

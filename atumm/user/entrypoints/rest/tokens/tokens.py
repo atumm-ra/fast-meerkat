@@ -25,7 +25,12 @@ class TokenPresenter(AbstractSinglePresenter[dict, AuthenticatedTokensResponse])
 
 class TokensRouter(Routable):
     @inject
-    def __init__(self, jwt_service: TokenService, tokenizer: Tokenizer, login_use_case: LoginUseCase):
+    def __init__(
+        self,
+        jwt_service: TokenService,
+        tokenizer: Tokenizer,
+        login_use_case: LoginUseCase,
+    ):
         super().__init__(prefix="/tokens")
         self.presenter = TokenPresenter()
         self.jwt_service = jwt_service

@@ -1,6 +1,8 @@
 from typing import AsyncIterator
+
 import httpx
 import pytest
+
 from atumm.app.infra.app.server import app
 
 
@@ -11,9 +13,5 @@ def anyio_backend():
 
 @pytest.fixture
 async def client() -> AsyncIterator[httpx.AsyncClient]:
-    async with httpx.AsyncClient(
-        app=app, base_url="http://testhost"
-    ) as client:
+    async with httpx.AsyncClient(app=app, base_url="http://testhost") as client:
         yield client
-
-
