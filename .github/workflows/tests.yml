@@ -1,4 +1,4 @@
-name: PyTest
+name: run tests
 
 on:
   push:
@@ -32,9 +32,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pdm sync -d  # Install dev dependencies
+          pdm sync -d
 
       - name: Run Tests
         run: |
-          echo $STAGE
           pdm run pytest -cov --cov-report html
