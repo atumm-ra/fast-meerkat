@@ -1,29 +1,24 @@
-from traceback import print_tb
-
 from buti import BootableComponent, ButiStore
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi_jwt_auth import AuthJWT
 from fastapi_jwt_auth.exceptions import AuthJWTException
-from injector import inject
 from pydantic import BaseModel
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse
+from atumm.core.entrypoints.rest.responses import map_exception_to_response
 from thisapp.fastapi.base import ProductionWebApp
 
 from atumm.core.exceptions import ErrorStatus, ExceptionDetail, RuntimeException
 from thisapp.buti.keys import ContainerKeys
 from thisapp.config import Config
-from thisapp.exceptions.base import map_exception_to_response
 from thisapp.fastapi.middlewares import (
     AuthBackend,
     AuthenticationMiddleware,
     ResponseLogMiddleware,
 )
-from atumm.services.health.entrypoints.rest.health.routers import health_router
-from atumm.services.user.entrypoints.rest import user_api_router
 
 
 class FastAPIComponent(BootableComponent):
@@ -50,15 +45,6 @@ class FastAPIMiddlewaresComponent(BootableComponent):
             Middleware(AuthenticationMiddleware, backend=AuthBackend()),
             Middleware(ResponseLogMiddleware),
         ]
-
-
-class RouterComponent(BootableComponent):
-    def boot(self, store: ButiStore) -> None:
-        app: FastAPI = store.get(ContainerKeys.app)
-
-        app.include_router(user_api_router)
-        app.include_router(health_router)
-
 
 class ListenersComponent(BootableComponent):
     def boot(self, store: ButiStore) -> None:

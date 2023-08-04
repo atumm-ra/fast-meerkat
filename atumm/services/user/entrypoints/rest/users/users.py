@@ -4,13 +4,10 @@ from classy_fastapi import Routable, get, post
 from fastapi import Depends, Query
 from fastapi_jwt_auth import AuthJWT
 from injector import inject
-
+from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
 from atumm.core.presenter import AbstractCollectionPresenter
-from thisapp.exceptions.base import RuntimeExceptionResponse
 from thisapp.fastapi.dependencies import IsAdmin, PermissionDependency
-from atumm.services.user.core.exceptions import PasswordsDoNotMatchException
 from atumm.services.user.dataproviders.beanie.models import User
-from atumm.services.user.dataproviders.beanie.repositories import UserRepo
 from atumm.services.user.entrypoints.rest.users.response import (
     CreateUserResponseSchema,
     GetUserListResponseSchema,

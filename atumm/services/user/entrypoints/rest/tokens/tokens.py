@@ -1,9 +1,8 @@
 from classy_fastapi import Routable, post
 from injector import inject
+from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
 
 from atumm.core.presenter import AbstractSinglePresenter
-from thisapp.exceptions.base import RuntimeExceptionResponse
-from atumm.services.user.dataproviders.beanie.repositories import UserRepo
 from atumm.services.user.entrypoints.common.services.token import TokenService
 from atumm.services.user.entrypoints.rest.tokens.request.auth import (
     RefreshTokenRequest,
