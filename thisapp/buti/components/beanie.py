@@ -7,7 +7,6 @@ from thisapp.beanie import init_my_beanie
 
 from thisapp.buti.keys import ContainerKeys
 from thisapp.config import Config
-from thisapp.injector import injector
 
 
 class BeanieComponent(BootableComponent):
@@ -15,8 +14,8 @@ class BeanieComponent(BootableComponent):
         # get the configuration manager and FastAPI from the store
         config: Config = object_store.get(ContainerKeys.config)
         app: FastAPI = object_store.get(ContainerKeys.app)
-        injector: Injector = object_store.get(ContainerKeys.injector)
-        beanie_client: AsyncIOMotorClient = injector.get(AsyncIOMotorClient)
+        injector_obj: Injector = object_store.get(ContainerKeys.injector)
+        beanie_client: AsyncIOMotorClient = injector_obj.get(AsyncIOMotorClient)
 
         @app.on_event("startup")
         async def beanie_startup():
