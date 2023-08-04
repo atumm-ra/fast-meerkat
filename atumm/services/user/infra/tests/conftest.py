@@ -3,7 +3,7 @@ from typing import AsyncIterator
 import httpx
 import pytest
 
-from thisapp.app.main import app
+from thisapp.main import app
 
 
 @pytest.fixture

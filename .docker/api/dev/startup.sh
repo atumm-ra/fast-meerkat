@@ -7,4 +7,4 @@ pdm sync --group dev
 
 dockerize -wait tcp://mongo:27017 -timeout 20s
 
-pdm run uvicorn thisapp.app.main:app --host 0.0.0.0 --port 8000 --reload
+pdm run uvicorn thisapp.main:app --host 0.0.0.0 --port 8000 --reload
