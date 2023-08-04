@@ -1,7 +1,5 @@
 from classy_fastapi import Routable, get
-from fastapi import Depends, Response
-
-from thisapp.fastapi.dependencies import AllowAll, PermissionDependency
+from fastapi import Response
 
 
 class HealthRouter(Routable):
@@ -12,8 +10,7 @@ class HealthRouter(Routable):
 
     @get("/health")
     async def home(
-        self,
-        permission: PermissionDependency = Depends(PermissionDependency([AllowAll])),
+        self
     ):
         return Response(status_code=200)
 

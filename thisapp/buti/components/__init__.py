@@ -5,17 +5,19 @@ from thisapp.buti.components.fastapi import (
     FastAPIComponent,
     FastAPIMiddlewaresComponent,
     ListenersComponent,
-    RouterComponent,
 )
+from thisapp.buti.components.health_service import HealthServiceComponent
 from thisapp.buti.components.injector import InjectorComponent
+from thisapp.buti.components.user_service import UserServiceComponent
 
 app_components = [
     ConfigComponent(),
     FastAPIComponent(),
-    RouterComponent(),
     FastAPIMiddlewaresComponent(),
     ListenersComponent(),
     AuthJWTComponent(),
     InjectorComponent(),
     BeanieComponent(),
+    UserServiceComponent(),
+    HealthServiceComponent(),
 ]
