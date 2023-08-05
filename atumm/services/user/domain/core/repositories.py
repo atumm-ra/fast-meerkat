@@ -2,7 +2,7 @@ from abc import abstractmethod
 from typing import List
 
 from atumm.core.data_providers.datastore.beanie import BeanieDataProvider
-from atumm.services.user.core.models import UserModel
+from atumm.services.user.domain.models import UserModel
 
 
 class AbstractUserRepo(BeanieDataProvider[UserModel]):

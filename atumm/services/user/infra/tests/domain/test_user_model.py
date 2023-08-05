@@ -2,7 +2,7 @@ import unittest
 
 from faker import Faker
 
-from atumm.services.user.core.models import StatusEnum, UserModel
+from atumm.services.user.domain.models import StatusEnum, UserModel
 
 
 class TestUserModel(unittest.TestCase):

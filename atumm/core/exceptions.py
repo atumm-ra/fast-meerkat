@@ -51,5 +51,3 @@ class RuntimeException(Exception):
             if self.details
             else None,
         }
-
-

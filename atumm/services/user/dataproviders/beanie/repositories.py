@@ -3,9 +3,9 @@ from typing import List
 import pymongo
 
 from atumm.core.data_providers.datastore.exceptions import DuplicateKeyException
-from atumm.services.user.core.models import UserModel
-from atumm.services.user.core.repositories import AbstractUserRepo
 from atumm.services.user.dataproviders.beanie.models import User
+from atumm.services.user.domain.core.repositories import AbstractUserRepo
+from atumm.services.user.domain.models import UserModel
 
 
 class UserRepo(AbstractUserRepo):

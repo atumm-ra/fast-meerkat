@@ -1,5 +1,5 @@
 from buti import BootableComponent, ButiStore
-from fastapi import APIRouter, FastAPI
+from fastapi import FastAPI
 from thisapp.buti.keys import ContainerKeys
 from atumm.services.health.entrypoints.rest.health.routers import health_router
 
