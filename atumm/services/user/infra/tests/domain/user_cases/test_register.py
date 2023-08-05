@@ -3,8 +3,8 @@ from unittest.mock import AsyncMock
 import pytest
 from faker import Faker
 
-from atumm.services.user.use_cases.register import RegisterCommand, RegisterUseCase
-from atumm.services.user.core.models import UserModel
+from atumm.services.user.domain.use_cases.register import RegisterCommand, RegisterUseCase
+from atumm.services.user.domain.models import UserModel
 
 
 

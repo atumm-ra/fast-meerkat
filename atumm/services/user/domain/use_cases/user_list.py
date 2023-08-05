@@ -1,7 +1,7 @@
 from injector import inject
 
 from atumm.core.use_case import Query, QueryUseCase
-from atumm.services.user.core.repositories import AbstractUserRepo
+from atumm.services.user.domain.core.repositories import AbstractUserRepo
 
 
 class GetUserListQuery(Query):

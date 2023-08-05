@@ -12,9 +12,9 @@ from atumm.services.user.entrypoints.rest.users.response import (
     CreateUserResponseSchema,
     GetUserListResponseSchema,
 )
-from atumm.services.user.use_cases.get_user import GetUserInfoQuery, GetUserInfoUseCase
-from atumm.services.user.use_cases.register import RegisterCommand, RegisterUseCase
-from atumm.services.user.use_cases.user_list import GetUserListQuery, GetUserListUseCase
+from atumm.services.user.domain.use_cases.get_user import GetUserInfoQuery, GetUserInfoUseCase
+from atumm.services.user.domain.use_cases.register import RegisterCommand, RegisterUseCase
+from atumm.services.user.domain.use_cases.user_list import GetUserListQuery, GetUserListUseCase
 
 
 class UserController:

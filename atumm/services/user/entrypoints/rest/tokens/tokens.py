@@ -11,7 +11,7 @@ from atumm.services.user.entrypoints.rest.tokens.request.auth import (
 from atumm.services.user.entrypoints.rest.tokens.response.auth import AuthenticatedTokensResponse
 from atumm.services.user.entrypoints.rest.users.request.user import LoginRequest
 from atumm.services.user.infra.auth.tokenizer import Tokenizer
-from atumm.services.user.use_cases.login import LoginCommand, LoginUseCase
+from atumm.services.user.domain.use_cases.login import LoginCommand, LoginUseCase
 
 
 class TokenPresenter(AbstractSinglePresenter[dict, AuthenticatedTokensResponse]):

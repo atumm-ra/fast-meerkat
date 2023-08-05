@@ -3,12 +3,12 @@ from typing import Dict, Optional
 from injector import inject
 
 from atumm.core.use_case import Command, CommandUseCase
-from atumm.services.user.core.exceptions import (
+from atumm.services.user.domain.core.exceptions import (
     AccountLockedException,
     PasswordsDoNotMatchException,
     UserNotFoundException,
 )
-from atumm.services.user.core.repositories import AbstractUserRepo
+from atumm.services.user.domain.core.repositories import AbstractUserRepo
 from atumm.services.user.infra.auth.tokenizer import Tokenizer
 
 

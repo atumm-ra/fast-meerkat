@@ -1,7 +1,7 @@
 from injector import Binder, Module, singleton
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from atumm.services.user.core.repositories import AbstractUserRepo
+from atumm.services.user.domain.core.repositories import AbstractUserRepo
 from atumm.services.user.dataproviders.beanie.repositories import UserRepo
 
 

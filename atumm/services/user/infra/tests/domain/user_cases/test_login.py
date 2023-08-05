@@ -3,9 +3,9 @@ from unittest.mock import AsyncMock
 import pytest
 from faker import Faker
 
-from atumm.services.user.core.models import UserModel
+from atumm.services.user.domain.models import UserModel
 from atumm.services.user.infra.auth.tokenizer import Tokenizer
-from atumm.services.user.use_cases.login import LoginCommand, LoginUseCase
+from atumm.services.user.domain.use_cases.login import LoginCommand, LoginUseCase
 
 
 class TestLoginUseCase:

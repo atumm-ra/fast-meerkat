@@ -4,7 +4,7 @@ from typing import Any, Mapping
 import jwt
 from jwt import PyJWT
 
-from atumm.services.user.core.token import DecodeTokenException, ExpiredTokenException
+from atumm.services.user.domain.core.exceptions import DecodeTokenException, ExpiredTokenException
 
 jwt_obj = PyJWT()
 jwt_obj.options["verify_aud"] = False
