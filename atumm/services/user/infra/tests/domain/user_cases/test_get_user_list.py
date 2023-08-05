@@ -1,8 +1,13 @@
-import pytest
 from unittest.mock import AsyncMock, MagicMock
 
+import pytest
+
 from atumm.services.user.domain.core.repositories import AbstractUserRepo
-from atumm.services.user.domain.use_cases.user_list import GetUserListQuery, GetUserListUseCase
+from atumm.services.user.domain.use_cases.user_list import (
+    GetUserListQuery,
+    GetUserListUseCase,
+)
+
 
 class TestGetUserListUseCase:
     @pytest.mark.anyio

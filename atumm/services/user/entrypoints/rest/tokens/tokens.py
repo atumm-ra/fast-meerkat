@@ -1,17 +1,19 @@
 from classy_fastapi import Routable, post
 from injector import inject
-from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
 
+from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
 from atumm.core.presenter import AbstractSinglePresenter
+from atumm.services.user.domain.use_cases.login import LoginCommand, LoginUseCase
 from atumm.services.user.entrypoints.common.services.token import TokenService
 from atumm.services.user.entrypoints.rest.tokens.request.auth import (
     RefreshTokenRequest,
     VerifyTokenRequest,
 )
-from atumm.services.user.entrypoints.rest.tokens.response.auth import AuthenticatedTokensResponse
+from atumm.services.user.entrypoints.rest.tokens.response.auth import (
+    AuthenticatedTokensResponse,
+)
 from atumm.services.user.entrypoints.rest.users.request.user import LoginRequest
 from atumm.services.user.infra.auth.tokenizer import Tokenizer
-from atumm.services.user.domain.use_cases.login import LoginCommand, LoginUseCase
 
 
 class TokenPresenter(AbstractSinglePresenter[dict, AuthenticatedTokensResponse]):

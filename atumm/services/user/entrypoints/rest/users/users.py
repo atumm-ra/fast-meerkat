@@ -4,17 +4,27 @@ from classy_fastapi import Routable, get, post
 from fastapi import Depends, Query
 from fastapi_jwt_auth import AuthJWT
 from injector import inject
+
 from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
 from atumm.core.presenter import AbstractCollectionPresenter
-from thisapp.fastapi.dependencies import IsAdmin, PermissionDependency
 from atumm.services.user.dataproviders.beanie.models import User
+from atumm.services.user.domain.use_cases.get_user import (
+    GetUserInfoQuery,
+    GetUserInfoUseCase,
+)
+from atumm.services.user.domain.use_cases.register import (
+    RegisterCommand,
+    RegisterUseCase,
+)
+from atumm.services.user.domain.use_cases.user_list import (
+    GetUserListQuery,
+    GetUserListUseCase,
+)
 from atumm.services.user.entrypoints.rest.users.response import (
     CreateUserResponseSchema,
     GetUserListResponseSchema,
 )
-from atumm.services.user.domain.use_cases.get_user import GetUserInfoQuery, GetUserInfoUseCase
-from atumm.services.user.domain.use_cases.register import RegisterCommand, RegisterUseCase
-from atumm.services.user.domain.use_cases.user_list import GetUserListQuery, GetUserListUseCase
+from thisapp.fastapi.dependencies import IsAdmin, PermissionDependency
 
 
 class UserController:
@@ -34,7 +44,9 @@ class UserController:
         return user
 
     async def get_user_info(self, auth: AuthJWT):
-        user = await self.get_user_info_use_case.execute(GetUserInfoQuery(auth=auth.data["sub"]))
+        user = await self.get_user_info_use_case.execute(
+            GetUserInfoQuery(auth=auth.data["sub"])
+        )
         return user
 
     async def get_user_list(self, limit: int, prev: int):

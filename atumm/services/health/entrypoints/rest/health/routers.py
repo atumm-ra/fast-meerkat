@@ -9,9 +9,7 @@ class HealthRouter(Routable):
         super().__init__(prefix="")
 
     @get("/health")
-    async def home(
-        self
-    ):
+    async def home(self):
         return Response(status_code=200)
 
 

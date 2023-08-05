@@ -4,7 +4,10 @@ import pytest
 from faker import Faker
 
 from atumm.services.user.domain.models import UserModel
-from atumm.services.user.domain.use_cases.get_user import GetUserInfoQuery, GetUserInfoUseCase
+from atumm.services.user.domain.use_cases.get_user import (
+    GetUserInfoQuery,
+    GetUserInfoUseCase,
+)
 
 
 class TestGetUserInfoUseCase:

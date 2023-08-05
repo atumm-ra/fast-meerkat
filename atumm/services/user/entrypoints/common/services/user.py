@@ -2,8 +2,8 @@ from typing import List, Optional
 
 from beanie.odm.operators.find.logical import And
 
-from atumm.services.user.domain.core.exceptions import UserNotFoundException
 from atumm.services.user.dataproviders.beanie.models import User
+from atumm.services.user.domain.core.exceptions import UserNotFoundException
 
 
 class UserService:

@@ -1,8 +1,8 @@
 from beanie import Document
 from pymongo import IndexModel
 
-from atumm.services.user.domain.models import UserModel
 from atumm.services.user.dataproviders.beanie.common.mixins import TimestampMixin
+from atumm.services.user.domain.models import UserModel
 
 
 class User(Document, UserModel, TimestampMixin):
