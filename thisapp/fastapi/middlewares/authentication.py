@@ -38,13 +38,11 @@ class AuthBackend(AuthenticationBackend):
                 config.JWT_SECRET_KEY,
                 algorithms=[config.JWT_ALGORITHM],
             )
-            user_email = payload.get("sub")
-            user_id = payload.get("user_id")
+            current_user.email = payload.get("sub")
+            current_user.id = payload.get("user_id")
         except jwt.exceptions.PyJWTError:
             return False, current_user
 
-        current_user.email = user_email
-        current_user.id = user_id
         return True, current_user
 
 
