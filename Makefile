@@ -62,3 +62,5 @@ test:					## run tests
 testf:					## run test filtered by pattern
 	pdm run pytest -k $(TARGET_ARGS)
 
+new-svc:
+	pdm run python atumm/core/entrypoints/cli/commands.py $(TARGET_ARGS)

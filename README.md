@@ -52,5 +52,8 @@ atumm/services/user
 
 ```
 
-
+To create the previous structure we can use the following command:
+```bash
+make new-svc <service-name>
+```
 
