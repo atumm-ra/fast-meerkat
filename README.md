@@ -1,7 +1,7 @@
 # Fast Meerkat [WIP]
 
 
-In a nutshell, the structure of a service within this application should follow the following example of directory tree:
+In a nutshell, the structure of a service within this application should follow the following directory tree/example:
 ```
 atumm/services/user
 
@@ -16,7 +16,7 @@ atumm/services/user
 │   ├── models.py
 │   ├── repositories.py
 │   ├── exceptions.py
-│   └── use_cases
+│   └── usecases
 │       ├── get_user.py
 │       ├── login.py
 │       ├── register.py
@@ -44,7 +44,7 @@ atumm/services/user
         ├── conftest.py
         └── domain
             ├── test_user_model.py
-            └── use_cases
+            └── usecases
                 ├── test_get_user_info.py
                 ├── test_get_user_list.py
                 ├── test_login.py
