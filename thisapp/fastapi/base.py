@@ -11,8 +11,8 @@ class BaseWebApp:
             title="Atumm User",
             description="User API",
             version="1.0.0",
-            docs_url=None if self.config.STAGE == "production" else "/docs",
-            redoc_url=None if self.config.STAGE == "production" else "/redoc",
+            docs_url=None if self.config.STAGE == "prod" else "/docs",
+            redoc_url=None if self.config.STAGE == "prod" else "/redoc",
         )
 
 class TestWebApp(BaseWebApp):

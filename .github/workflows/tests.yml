@@ -36,4 +36,5 @@ jobs:
 
       - name: Run Tests
         run: |
+          pdm run python -c 'import os;print(os.environ)'
           pdm run pytest -cov --cov-report html

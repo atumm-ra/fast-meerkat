@@ -8,15 +8,15 @@ from injector import inject
 from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
 from atumm.core.presenter import AbstractCollectionPresenter
 from atumm.services.user.dataproviders.beanie.models import User
-from atumm.services.user.domain.use_cases.get_user import (
+from atumm.services.user.domain.usecases.get_user import (
     GetUserInfoQuery,
     GetUserInfoUseCase,
 )
-from atumm.services.user.domain.use_cases.register import (
+from atumm.services.user.domain.usecases.register import (
     RegisterCommand,
     RegisterUseCase,
 )
-from atumm.services.user.domain.use_cases.user_list import (
+from atumm.services.user.domain.usecases.user_list import (
     GetUserListQuery,
     GetUserListUseCase,
 )
