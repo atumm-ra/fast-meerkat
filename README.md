@@ -44,7 +44,7 @@ atumm/services/user
         ├── conftest.py
         └── domain
             ├── test_user_model.py
-            └── user_cases
+            └── use_cases
                 ├── test_get_user_info.py
                 ├── test_get_user_list.py
                 ├── test_login.py
