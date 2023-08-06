@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from atumm.services.user.domain.core.repositories import AbstractUserRepo
+from atumm.services.user.domain.repositories import AbstractUserRepo
 from atumm.services.user.domain.use_cases.user_list import (
     GetUserListQuery,
     GetUserListUseCase,

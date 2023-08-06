@@ -1,6 +1,6 @@
 from injector import inject
 
-from atumm.services.user.domain.core.exceptions import InvalidRefreshSubject
+from atumm.services.user.domain.exceptions import InvalidRefreshSubject
 from atumm.services.user.entrypoints.common.schemas.jwt import RefreshTokenSchema
 from atumm.services.user.infra.auth.tokenizer import Tokenizer
 

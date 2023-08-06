@@ -12,11 +12,10 @@ atumm/services/user
 │       ├── models.py
 │       └── repositories.py
 
-├── domain			# the core business logic
+├── domain			# the innermost layer (domain logic)
 │   ├── models.py
-|   ├── core		# interface adapters/exceptions
-│   │	├── exceptions.py
-│   │	└── repositories.py
+│   ├── repositories.py
+│   ├── exceptions.py
 │   └── use_cases
 │       ├── get_user.py
 │       ├── login.py
