@@ -4,7 +4,7 @@ import pytest
 from faker import Faker
 
 from atumm.services.user.domain.models import UserModel
-from atumm.services.user.domain.use_cases.login import LoginCommand, LoginUseCase
+from atumm.services.user.domain.usecases.login import LoginCommand, LoginUseCase
 from atumm.services.user.infra.auth.tokenizer import Tokenizer
 
 

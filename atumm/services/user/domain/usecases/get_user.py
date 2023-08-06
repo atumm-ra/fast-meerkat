@@ -3,7 +3,7 @@ from pydantic import EmailStr
 
 from atumm.core.use_case import Query, QueryUseCase
 from atumm.services.user.dataproviders.beanie.models import User
-from atumm.services.user.domain.core.repositories import AbstractUserRepo
+from atumm.services.user.domain.repositories import AbstractUserRepo
 
 
 class GetUserInfoQuery(Query):

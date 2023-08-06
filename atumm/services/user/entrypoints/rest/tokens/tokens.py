@@ -3,7 +3,7 @@ from injector import inject
 
 from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
 from atumm.core.presenter import AbstractSinglePresenter
-from atumm.services.user.domain.use_cases.login import LoginCommand, LoginUseCase
+from atumm.services.user.domain.usecases.login import LoginCommand, LoginUseCase
 from atumm.services.user.entrypoints.common.services.token import TokenService
 from atumm.services.user.entrypoints.rest.tokens.request.auth import (
     RefreshTokenRequest,

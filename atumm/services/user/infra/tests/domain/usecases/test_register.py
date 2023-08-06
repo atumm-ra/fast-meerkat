@@ -4,7 +4,7 @@ import pytest
 from faker import Faker
 
 from atumm.services.user.domain.models import UserModel
-from atumm.services.user.domain.use_cases.register import (
+from atumm.services.user.domain.usecases.register import (
     RegisterCommand,
     RegisterUseCase,
 )

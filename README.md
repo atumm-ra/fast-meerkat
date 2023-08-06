@@ -1,7 +1,7 @@
 # Fast Meerkat [WIP]
 
 
-In a nutshell, the structure of a service within this application should follow the following example of directory tree:
+In a nutshell, the structure of a service within this application should follow the following directory tree/example:
 ```
 atumm/services/user
 
@@ -12,12 +12,11 @@ atumm/services/user
 │       ├── models.py
 │       └── repositories.py
 
-├── domain			# the core business logic
+├── domain			# the innermost layer (domain logic)
 │   ├── models.py
-|   ├── core		# interface adapters/exceptions
-│   │	├── exceptions.py
-│   │	└── repositories.py
-│   └── use_cases
+│   ├── repositories.py
+│   ├── exceptions.py
+│   └── usecases
 │       ├── get_user.py
 │       ├── login.py
 │       ├── register.py
@@ -45,7 +44,7 @@ atumm/services/user
         ├── conftest.py
         └── domain
             ├── test_user_model.py
-            └── user_cases
+            └── usecases
                 ├── test_get_user_info.py
                 ├── test_get_user_list.py
                 ├── test_login.py
@@ -53,5 +52,8 @@ atumm/services/user
 
 ```
 
-
+To create the previous structure we can use the following command:
+```bash
+make new-svc <service-name>
+```
 

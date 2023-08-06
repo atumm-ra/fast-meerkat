@@ -40,13 +40,18 @@ class TestConfig(Config):
     pass
 
 
-@lru_cache
+
 def get_config() -> Config:
-    env = os.getenv("STAGE", "test")
-    config_type = {
-        "local": LocalConfig(_env_file=".env"),
-        "test": TestConfig(_env_file=".env.test"),
-        "dev": DevelopmentConfig(_env_file=".env"),
-        "prod": ProductionConfig(_env_file=".env"),
-    }
-    return config_type[env]
+    env = os.environ['STAGE']
+    
+    match env:
+        case 'local':
+            return LocalConfig(_env_file=".env")
+        case 'test':
+            return TestConfig(_env_file=".env.test")
+        case 'dev':
+            return DevelopmentConfig(_env_file=".env")
+        case 'prod':
+            return ProductionConfig(_env_file=".env")
+        case _:
+            raise ValueError("invalid '{env}' stage")

@@ -6,7 +6,7 @@ from fastapi.openapi.models import APIKey, APIKeyIn
 from fastapi.security.base import SecurityBase
 
 from atumm.core.exceptions import RuntimeException
-from atumm.services.user.domain.core.exceptions import UnauthorizedException
+from atumm.services.user.domain.exceptions import UnauthorizedException
 from atumm.services.user.entrypoints.common.services import UserService
 
 
