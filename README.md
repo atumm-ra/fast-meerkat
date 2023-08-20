@@ -1,6 +1,6 @@
 # Fast Meerkat [WIP]
 
-This is how the dependencies are linked, from the innermost layer (domain logic) to the infrastructure layer 
+This is how the dependencies are linked, from the outermost (infrastructure) to the innermost (domain logic/interface adapters)
 
 ![dependency-graph](./docs/dependency-graph.png)
 
