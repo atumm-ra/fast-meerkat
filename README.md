@@ -1,16 +1,14 @@
 # Fast Meerkat [WIP]
 
+This is how the dependencies are linked, from the innermost layer (domain logic) to the infrastructure layer 
 
-In a nutshell, the structure of a service within this application should follow the following directory tree/example:
+![dependency-graph](./docs/dependency-graph.png)
+
+
+
+A typical service within this application should follow the following directory structure:
 ```
 atumm/services/user
-
-├── dataproviders		# concrete data providers
-│   └── beanie
-│       ├── common
-│       │   └── mixins.py
-│       ├── models.py
-│       └── repositories.py
 
 ├── domain			# the innermost layer (domain logic)
 │   ├── models.py
@@ -21,6 +19,11 @@ atumm/services/user
 │       ├── login.py
 │       ├── register.py
 │       └── user_list.py
+
+├── dataproviders		# concrete data providers
+│   └── beanie
+│       ├── models.py
+│       └── repositories.py
 
 ├── entrypoints		 # entrypoints of the service, such as RESTful API endpoints, cli...etc
 │   └── rest
