@@ -57,10 +57,10 @@ install:
 	pdm sync
 
 test:					## run tests
-	pdm run pytest --capture=no -cov --cov-report html
+	STAGE=test pdm run pytest --capture=no -cov --cov-report html
 
 testf:					## run test filtered by pattern
-	pdm run pytest -k $(TARGET_ARGS)
+	STAGE=test pdm run pytest -k $(TARGET_ARGS)
 
 new-svc:
 	pdm run python atumm/core/entrypoints/cli/commands.py $(TARGET_ARGS)
