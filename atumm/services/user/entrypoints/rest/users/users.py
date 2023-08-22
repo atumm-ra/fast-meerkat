@@ -6,7 +6,7 @@ from fastapi_jwt_auth import AuthJWT
 from injector import inject
 
 from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
-from atumm.core.presenter import AbstractCollectionPresenter
+from atumm.core.presenter import AbstractPresenter
 from atumm.services.user.dataproviders.beanie.models import User
 from atumm.services.user.domain.usecases.get_user import (
     GetUserInfoQuery,
@@ -38,34 +38,27 @@ class UserController:
         self.get_user_info_use_case = get_user_info_use_case
         self.get_user_list_use_case = get_user_list_use_case
 
-    async def register(self, command: RegisterCommand):
-        # todo refactor: move this exception class
+    async def register(self, command: RegisterCommand) -> User:
         user = await self.register_use_case.execute(command)
         return user
 
-    async def get_user_info(self, auth: AuthJWT):
+    async def get_user_info(self, auth: AuthJWT) -> User:
         user = await self.get_user_info_use_case.execute(
             GetUserInfoQuery(auth=auth.data["sub"])
         )
         return user
 
-    async def get_user_list(self, limit: int, prev: int):
+    async def get_user_list(self, start: int, limit: int) -> List[User]:
         users = await self.get_user_list_use_case.execute(
-            GetUserListQuery(limit=limit, start=prev)
+            GetUserListQuery(limit=limit, start=start)
         )
         return users
 
 
-class UserCollectionPresenter(
-    AbstractCollectionPresenter[User, CreateUserResponseSchema]
-):
+class UserCollectionPresenter(AbstractPresenter[User, CreateUserResponseSchema]):
     @staticmethod
     def present(user: User) -> CreateUserResponseSchema:
         return CreateUserResponseSchema(**user.dict())
-
-    @staticmethod
-    def present_list(users: List[User]) -> List[CreateUserResponseSchema]:
-        return [GetUserListResponseSchema(**user.dict()) for user in users]
 
 
 class UserRouter(Routable):
@@ -109,8 +102,8 @@ class UserRouter(Routable):
     )
     async def get_user_list(
         self,
+        start: int = Query(None, description="Slice from"),
         limit: int = Query(10, description="Limit"),
-        prev: int = Query(None, description="Prev ID"),
     ):
-        users = await self.controller.get_user_list(limit=limit, prev=prev)
+        users = await self.controller.get_user_list(start=start, limit=limit)
         return self.presenter.present_list(users)

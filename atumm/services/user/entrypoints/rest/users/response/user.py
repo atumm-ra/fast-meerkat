@@ -13,9 +13,6 @@ class GetUserListResponseSchema(BaseModel):
 
 
 class CreateUserResponseSchema(BaseModel):
-    class Config:
-        orm_mode = True
-
     email: str = Field(..., description="Email")
     username: str = Field(..., description="username")
 
