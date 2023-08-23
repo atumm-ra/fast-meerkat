@@ -32,10 +32,7 @@ def create_service(service_name: str):
         ("dataproviders/beanie", ["models.py", "repositories.py"]),
         ("domain", ["models.py", "repositories.py", "exceptions.py"]),
         ("domain/usecases", []),
-        ("entrypoints/rest/tokens/request", []),
-        ("entrypoints/rest/tokens/response", []),
-        ("entrypoints/rest/users/request", []),
-        ("entrypoints/rest/users/response", []),
+        ("entrypoints", []),
         ("infra/di", []),
         ("infra/tests/domain/usecases", []),
     ]
