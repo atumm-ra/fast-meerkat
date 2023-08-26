@@ -10,6 +10,5 @@ class AbstractPresenter(Generic[InputType, OutputType]):
     def present(self, item: InputType) -> OutputType:
         pass
 
-    @staticmethod
     def present_list(self, items: List[InputType]) -> List[OutputType]:
         return [self.present(item) for item in items]

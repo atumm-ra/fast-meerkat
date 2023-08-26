@@ -30,7 +30,6 @@ class UserModel(BaseModel):
     )
     salt: str = Field(default_factory=bcrypt.gensalt, description="password salt")
     status: StatusEnum = Field(StatusEnum.ACTIVE)
-    # Optional fields
 
     first_name: Optional[str] = Field(
         None, min_length=1, max_length=255, description="The user's first name"
