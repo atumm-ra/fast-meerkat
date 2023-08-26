@@ -57,10 +57,13 @@ install:
 	pdm sync
 
 test:					## run tests
-	pdm run pytest --capture=no -cov --cov-report html
+	STAGE=test pdm run pytest --capture=no -cov --cov-report html
 
 testf:					## run test filtered by pattern
-	pdm run pytest -k $(TARGET_ARGS)
+	STAGE=test pdm run pytest -k $(TARGET_ARGS)
 
 new-svc:
 	pdm run python atumm/core/entrypoints/cli/commands.py $(TARGET_ARGS)
+
+new-rsc:			## create a new rest resource within a service (service_name, resource_name), ex: make new-resource user tokens
+	pdm run python atumm/core/entrypoints/cli/commands.py create-rest-resource $(TARGET_ARGS)

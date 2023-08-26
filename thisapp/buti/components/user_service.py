@@ -1,8 +1,8 @@
 from buti import BootableComponent, ButiStore
 from fastapi import APIRouter, FastAPI
 from injector import Injector
-from atumm.services.user.entrypoints.rest.tokens.tokens import TokensRouter
-from atumm.services.user.entrypoints.rest.users.users import UserRouter
+from atumm.services.user.entrypoints.rest.tokens.controllers import TokensRouter
+from atumm.services.user.entrypoints.rest.users.routers import UserRouter
 from thisapp.buti.keys import ContainerKeys
 
 from thisapp.config import Config
@@ -10,7 +10,6 @@ from thisapp.config import Config
 
 class UserServiceComponent(BootableComponent):
     def boot(self, object_store: ButiStore):
-        config: Config = object_store.get(ContainerKeys.config)
         app: FastAPI = object_store.get(ContainerKeys.app)
         injector_obj: Injector = object_store.get(ContainerKeys.injector)
         

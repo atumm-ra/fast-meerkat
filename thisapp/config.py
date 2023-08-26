@@ -1,13 +1,10 @@
 import os
 from functools import lru_cache
 
-from pydantic import BaseSettings
+from atumm.core.infra.config import Config
 
 
-class Config(BaseSettings):
-    STAGE: str = "dev"
-    DEBUG: bool
-
+class AppConfig(Config):
     APP_HOST: str
     APP_PORT: int
 
@@ -24,19 +21,19 @@ class Config(BaseSettings):
     MONGO_URL: str
 
 
-class DevelopmentConfig(Config):
+class DevelopmentConfig(AppConfig):
     pass
 
 
-class LocalConfig(Config):
+class LocalConfig(AppConfig):
     pass
 
 
-class ProductionConfig(Config):
+class ProductionConfig(AppConfig):
     pass
 
 
-class TestConfig(Config):
+class TestConfig(AppConfig):
     pass
 
 
