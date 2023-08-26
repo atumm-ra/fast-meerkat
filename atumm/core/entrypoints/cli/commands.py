@@ -21,6 +21,29 @@ def create_module(module_path: str, files: list = []):
         Path(current_path, file).touch()
 
 
+def create_resource(service_name: str, resource_name: str):
+    """
+    Create a new REST resource with the given service and resource names.
+    """
+    base_path = f"atumm/services/{service_name}/entrypoints/rest/{resource_name}"
+
+    modules = [
+        (
+            "",
+            [
+                "controllers.py",
+                "presenters.py",
+                "requests.py",
+                "responses.py",
+                "routers.py",
+            ],
+        ),
+    ]
+
+    for module, files in modules:
+        create_module(f"{base_path}/{module}", files)
+
+
 @app.command()
 def create_service(service_name: str):
     """
@@ -39,6 +62,14 @@ def create_service(service_name: str):
 
     for module, files in modules:
         create_module(f"{base_path}/{module}", files)
+
+
+@app.command()
+def create_rest_resource(service_name: str, resource_name: str):
+    """
+    Create a new REST resource with the given service and resource names.
+    """
+    create_resource(service_name, resource_name)
 
 
 if __name__ == "__main__":
