@@ -17,7 +17,9 @@ class UserRepo(AbstractUserRepo):
 
     async def create(self, username: str, password: str, email: str) -> UserModel:
         user = User(email=email, password=password, username=username)
-        user.password = self.hasher.hash_password(user.password, self.hasher.generate_salt())
+        user.password = self.hasher.hash_password(
+            user.password, self.hasher.generate_salt()
+        )
 
         try:
             await User.insert_one(user)

@@ -1,4 +1,4 @@
-from bcrypt import hashpw, gensalt
+from bcrypt import gensalt, hashpw
 
 
 class PasswordHasher:
@@ -16,6 +16,6 @@ class PasswordHasher:
     def is_password_valid(self, password: str, salt: str) -> bool:
         input_pass_hashed = hashpw(password + self.password_key, salt)
         return self.password == input_pass_hashed
-    
+
     def generate_salt(self) -> str:
         return gensalt()
