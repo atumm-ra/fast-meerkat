@@ -1,10 +1,11 @@
 from typing import List
 
-from injector import Module, provider, singleton
+from injector import Binder, Module, provider, singleton
 from motor.motor_asyncio import AsyncIOMotorClient
+from atumm.core.infra.config import Config
 from atumm.services.user.infra.auth.tokenizer import Tokenizer
 
-from thisapp.config import Config, get_config
+from thisapp.config import get_config
 
 
 class AsyncMotorClientProvider(Module):
@@ -14,6 +15,7 @@ class AsyncMotorClientProvider(Module):
         config: Config = get_config()
         return AsyncIOMotorClient(config.MONGO_URL)
 
+
 class TokenizerProvider(Module):
     @singleton
     @provider
@@ -22,4 +24,9 @@ class TokenizerProvider(Module):
         return Tokenizer(config.JWT_SECRET_KEY, config.JWT_ALGORITHM)
 
 
-app_providers: List = [AsyncMotorClientProvider, TokenizerProvider]
+class ConfigProvider(Module):
+    def configure(self, binder: Binder):
+        binder.bind(Config, to=get_config(), scope=singleton)
+
+
+app_providers: List = [ConfigProvider, AsyncMotorClientProvider, TokenizerProvider]
