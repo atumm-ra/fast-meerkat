@@ -2,7 +2,7 @@ from typing import Dict, Optional
 
 from injector import inject
 
-from atumm.core.use_case import Command, CommandUseCase
+from atumm.core.usecases import Command, CommandUseCase
 from atumm.services.user.domain.exceptions import (
     AccountLockedException,
     PasswordsDoNotMatchException,

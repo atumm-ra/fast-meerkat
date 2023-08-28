@@ -2,7 +2,7 @@ from typing import List
 
 from injector import inject
 
-from atumm.core.use_case import Query, QueryUseCase
+from atumm.core.usecases import Query, QueryUseCase
 from atumm.services.user.domain.models import UserModel
 from atumm.services.user.domain.repositories import AbstractUserRepo
 
