@@ -3,7 +3,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from atumm.services.user.domain.repositories import AbstractUserRepo
-from atumm.services.user.domain.usecases.get_users import GetUsersQuery, GetUsersUsecase
+from atumm.services.user.domain.usecases.get_users import GetUsersQuery, GetUsersUseCase
 
 
 class TestGetUsersUsecase:
@@ -12,7 +12,7 @@ class TestGetUsersUsecase:
         mock_user_repo = MagicMock(spec=AbstractUserRepo)
         mock_user_repo.find_all = AsyncMock(return_value=["user1", "user2", "user3"])
 
-        use_case = GetUsersUsecase(user_repo=mock_user_repo)
+        use_case = GetUsersUseCase(user_repo=mock_user_repo)
 
         query = GetUsersQuery(start=0, limit=3)
 

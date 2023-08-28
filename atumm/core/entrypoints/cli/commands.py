@@ -1,9 +1,9 @@
 import os
 from pathlib import Path
 
-import typer
+from typer import Typer
 
-app = typer.Typer()
+app = Typer()
 
 
 def create_module(module_path: str, files: list = []):
@@ -16,7 +16,6 @@ def create_module(module_path: str, files: list = []):
         Path(current_path).mkdir(parents=True, exist_ok=True)
         Path(current_path, "__init__.py").touch()
 
-    # Create additional files
     for file in files:
         Path(current_path, file).touch()
 
@@ -67,7 +66,7 @@ def create_service(service_name: str):
 @app.command()
 def create_rest_resource(service_name: str, resource_name: str):
     """
-    Create a new REST resource with the given service and resource names.
+    Create a new REST resource with the given service and resource name.
     """
     create_resource(service_name, resource_name)
 

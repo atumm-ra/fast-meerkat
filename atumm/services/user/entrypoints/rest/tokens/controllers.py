@@ -1,68 +1,43 @@
-from classy_fastapi import Routable, post
 from injector import inject
 
-from atumm.core.entrypoints.rest.responses import RuntimeExceptionResponse
 from atumm.services.user.domain.usecases.login import LoginCommand, LoginUseCase
-from atumm.services.user.entrypoints.common.services.token import TokenService
+from atumm.services.user.domain.usecases.refresh_token import (
+    RefreshTokenCommand,
+    RefreshTokenUseCase,
+)
 from atumm.services.user.entrypoints.rest.tokens.presenters import TokenPresenter
 from atumm.services.user.entrypoints.rest.tokens.requests import (
     LoginRequest,
     RefreshTokenRequest,
-    VerifyTokenRequest,
 )
 from atumm.services.user.entrypoints.rest.tokens.responses import (
     AuthenticatedTokensResponse,
 )
 
 
-class TokensRouter(Routable):
+class TokensController:
     @inject
     def __init__(
         self,
         presenter: TokenPresenter,
-        jwt_service: TokenService,
+        refresh_token_use_case: RefreshTokenUseCase,
         login_use_case: LoginUseCase,
     ):
-        super().__init__(prefix="/tokens")
         self.presenter = presenter
-        self.jwt_service = jwt_service
+        self.refresh_token_use_case = refresh_token_use_case
         self.login_use_case = login_use_case
 
-    @post(
-        "/refresh",
-        response_model=AuthenticatedTokensResponse,
-        responses={
-            "400": {"model": RuntimeExceptionResponse},
-            "401": {"model": RuntimeExceptionResponse},
-        },
-    )
-    async def refresh_token(self, request: RefreshTokenRequest):
-        token = await self.jwt_service.create_refresh_token(
-            token=request.token, refresh_token=request.refresh_token
+    async def refresh_token(
+        self, request: RefreshTokenRequest
+    ) -> AuthenticatedTokensResponse:
+        tokens = await self.refresh_token_use_case.execute(
+            RefreshTokenCommand(
+                token=request.token, refresh_token=request.refresh_token
+            )
         )
-        return AuthenticatedTokensResponse(
-            **{"token": token.token, "refresh_token": token.refresh_token}
-        )
+        return self.presenter.present(tokens)
 
-    @post(
-        "/verify",
-        status_code=200,
-        responses={"401": {"model": RuntimeExceptionResponse}},
-    )
-    async def verify_token(self, request: VerifyTokenRequest):
-        # todo revisit
-        await self.jwt_service.verify_token(token=request.token)
-        return {}
-
-    @post(
-        "/access",
-        response_model=AuthenticatedTokensResponse,
-        responses={
-            "404": {"model": RuntimeExceptionResponse},
-            "401": {"model": RuntimeExceptionResponse},
-        },
-    )
-    async def login(self, request: LoginRequest):
+    async def login(self, request: LoginRequest) -> AuthenticatedTokensResponse:
         tokens = await self.login_use_case.execute(
             LoginCommand(
                 email=request.email,

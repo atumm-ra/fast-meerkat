@@ -2,7 +2,7 @@ from typing import List
 
 from injector import inject
 
-from atumm.core.use_case import Query, QueryUseCase
+from atumm.core.usecases import Query, QueryUseCase
 from atumm.services.user.domain.models import UserModel
 from atumm.services.user.domain.repositories import AbstractUserRepo
 
@@ -12,7 +12,7 @@ class GetUsersQuery(Query):
     limit: int
 
 
-class GetUsersUsecase(QueryUseCase[GetUsersQuery]):
+class GetUsersUseCase(QueryUseCase[GetUsersQuery]):
     @inject
     def __init__(self, user_repo: AbstractUserRepo):
         self.user_repo = user_repo

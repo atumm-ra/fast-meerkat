@@ -3,7 +3,7 @@ from typing import Generic, TypeVar
 
 from beanie import Document
 
-from atumm.core.data_providers.provider import DataProvider
+from atumm.core.dataproviders import DataProvider
 
 DocumentType = TypeVar("DocumentType", bound=Document)
 
