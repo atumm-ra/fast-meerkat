@@ -3,7 +3,7 @@ from typing import List
 import pymongo
 from injector import inject
 
-from atumm.core.data_providers.datastore.exceptions import DuplicateKeyException
+from atumm.core.dataproviders.exceptions import DuplicateKeyException
 from atumm.services.user.dataproviders.beanie.models import User
 from atumm.services.user.domain.models import UserModel
 from atumm.services.user.domain.repositories import AbstractUserRepo

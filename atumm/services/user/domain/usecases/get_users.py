@@ -12,7 +12,7 @@ class GetUsersQuery(Query):
     limit: int
 
 
-class GetUsersUsecase(QueryUseCase[GetUsersQuery]):
+class GetUsersUseCase(QueryUseCase[GetUsersQuery]):
     @inject
     def __init__(self, user_repo: AbstractUserRepo):
         self.user_repo = user_repo

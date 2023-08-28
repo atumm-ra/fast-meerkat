@@ -8,9 +8,5 @@ class LoginRequest(BaseModel):
 
 
 class RefreshTokenRequest(BaseModel):
-    token: str = Field(..., description="Token")
+    token: str = Field(..., description="Access Token")
     refresh_token: str = Field(..., description="Refresh token")
-
-
-class VerifyTokenRequest(BaseModel):
-    token: str = Field(..., description="Token")
