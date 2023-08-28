@@ -1,7 +1,7 @@
 from buti import BootableComponent, ButiStore
 from fastapi import APIRouter, FastAPI
 from injector import Injector
-from atumm.services.user.entrypoints.rest.tokens.controllers import TokensRouter
+from atumm.services.user.entrypoints.rest.tokens.routers import TokensRouter
 from atumm.services.user.entrypoints.rest.users.routers import UserRouter
 from thisapp.buti.keys import ContainerKeys
 
