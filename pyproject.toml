@@ -46,11 +46,6 @@ build-backend = "pdm.backend"
 
 [tool.pytest.ini_options]
 mock_use_standalone_module = true
-testpaths = [
-    "tests",
-    "atumm/health/infra/tests",
-    "atumm/user/infra/tests",
-]
 
 [tool.pdm]
 
