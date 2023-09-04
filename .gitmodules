@@ -1,0 +1,9 @@
+[submodule "atumm-ext/atumm-core"]
+	path = atumm-ext/atumm-core
+	url = git@github.com:atumm-ra/atumm-core.git
+[submodule "atumm-ext/atumm-services-health"]
+	path = atumm-ext/atumm-services-health
+	url = git@github.com:atumm-ra/atumm-services-health.git
+[submodule "atumm-ext/atumm-services-user"]
+	path = atumm-ext/atumm-services-user
+	url = git@github.com:atumm-ra/atumm-services-user.git

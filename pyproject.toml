@@ -33,6 +33,9 @@ dependencies = [
     "fastapi-jwt-auth>=0.5.0",
     "buti @ git+https://github.com/atumm-org/buti.git@dev",
     "python-dotenv>=1.0.0",
+    "atumm-core @ git+https://github.com/atumm-ra/atumm-core.git@dev",
+    "atumm-services-health @ git+https://github.com/atumm-ra/atumm-services-health.git@dev",
+    "atumm-services-user @ git+https://github.com/atumm-ra/atumm-services-user.git@dev",
 ]
 
 
@@ -47,9 +50,6 @@ testpaths = [
     "tests",
     "atumm/health/infra/tests",
     "atumm/user/infra/tests",
-]
-env = [
-    "STAGE=test"
 ]
 
 [tool.pdm]

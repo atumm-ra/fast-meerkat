@@ -6,7 +6,7 @@ groups = ["default", "dev"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:cb4e21cca5e8579d2b9a470cd06f630ee584b9ac511f4885b659b20ba6e31b66"
+content_hash = "sha256:ec52d844422bcdf9d3be9d79ee5e7fa89700e1c7d314cda2a8137cf8ad6d37be"
 
 [[package]]
 name = "amqp"
@@ -89,6 +89,44 @@ summary = "reference implementation of PEP 3156"
 files = [
     {file = "asyncio-3.4.3-py3-none-any.whl", hash = "sha256:c4d18b22701821de07bd6aea8b53d21449ec0ec5680645e5317062ea21817d2d"},
     {file = "asyncio-3.4.3.tar.gz", hash = "sha256:83360ff8bc97980e4ff25c964c7bd3923d333d177aa4f7fb736b019f26c7cb41"},
+]
+
+[[package]]
+name = "atumm-core"
+version = "0.1.0"
+requires_python = ">=3.11"
+git = "https://github.com/atumm-ra/atumm-core.git"
+ref = "dev"
+revision = "d56b444e5a843c2253d4d442a2f490ff5c9384b2"
+summary = "Type definitions and core of atumm services"
+dependencies = [
+    "pydantic<3.0,>=1.10",
+]
+
+[[package]]
+name = "atumm-services-health"
+version = "0.1.0"
+requires_python = ">=3.11"
+git = "https://github.com/atumm-ra/atumm-services-health.git"
+ref = "dev"
+revision = "46a611e7414d61c722114ee30a2fab1b5cd5d65b"
+summary = "Health Webservice"
+dependencies = [
+    "atumm-core @ git+https://github.com/atumm-ra/atumm-core.git@dev",
+    "pydantic<3.0,>=1.10",
+]
+
+[[package]]
+name = "atumm-services-user"
+version = "0.1.0"
+requires_python = ">=3.11"
+git = "https://github.com/atumm-ra/atumm-services-user.git"
+ref = "dev"
+revision = "ac8c1deb93d30fe253a160cc7f262acfc1e6f687"
+summary = "User Webservice"
+dependencies = [
+    "atumm-core @ git+https://github.com/atumm-ra/atumm-core.git@dev",
+    "pydantic<3.0,>=1.10",
 ]
 
 [[package]]
