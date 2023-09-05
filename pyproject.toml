@@ -1,28 +1,23 @@
 [project]
 name = "fast-meerkat"
 version = "3.0.0"
-description = "An opinionated Clean Architecture App Template"
+description = "An Opinionated Clean Architecture App Template"
 authors = [
     { name = "Omar", email = "omar@atumm.org" },
 ]
 requires-python = ">=3.11.1,<4.0.0"
 dependencies = [
     "uvicorn>=0.21.1",
-    "celery<6.0.0,>=5.2.7",
     "gunicorn>=20.1.0",
     "fastapi-event<1.0.0,>=0.1.3",
-    "pythondi<2.0.0,>=1.2.4",
     "ujson<6.0.0,>=5.4.0",
     "click<9.0.0,>=8.1.3",
     "greenlet==1.1.3",
-    "redis<5.0.0,>=4.3.4",
     "beanie>=1.18.0",
-    "ulid-py>=1.1.0",
     "motor>=3.1.2",
     "asyncio>=3.4.3",
     "pymongo>=4.3.3",
     "uvloop>=0.17.0",
-    "python-decouple>=3.8",
     "starlette>=0.26.1",
     "classy-fastapi>=0.4.0",
     "fastapi>=0.95.1",
@@ -58,16 +53,13 @@ dev = [
     "pytest-mock>=3.10.0",
     "mock>=5.0.2",
     "mypy>=1.3.0",
-    "behave>=1.2.6",
     "ssort>=0.11.6",
     "isort>=5.12.0",
     "black>=23.3.0",
     "six>=1.16.0",
     "pytest-cov>=4.1.0",
     "faker>=19.2.0",
-    "asgi-lifespan>=2.1.0",
     "python-dateutil>=2.8.2",
-    "mongomock-motor>=0.0.20",
     "typer>=0.9.0",
 ]
 

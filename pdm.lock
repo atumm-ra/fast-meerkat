@@ -6,20 +6,7 @@ groups = ["default", "dev"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:ec52d844422bcdf9d3be9d79ee5e7fa89700e1c7d314cda2a8137cf8ad6d37be"
-
-[[package]]
-name = "amqp"
-version = "5.1.1"
-requires_python = ">=3.6"
-summary = "Low-level AMQP client for Python (fork of amqplib)."
-dependencies = [
-    "vine>=5.0.0",
-]
-files = [
-    {file = "amqp-5.1.1-py3-none-any.whl", hash = "sha256:6f0956d2c23d8fa6e7691934d8c3930eadb44972cbbd1a7ae3a520f735d43359"},
-    {file = "amqp-5.1.1.tar.gz", hash = "sha256:2c1b13fecc0893e946c65cbd5f36427861cffa4ea2201d8f6fca22e2a373b5e2"},
-]
+content_hash = "sha256:8520ab06c423cc0f7ee55bacf8173211a77e835fc3a73d21056bc3fe2c52178d"
 
 [[package]]
 name = "anyio"
@@ -50,19 +37,6 @@ files = [
 ]
 
 [[package]]
-name = "asgi-lifespan"
-version = "2.1.0"
-requires_python = ">=3.7"
-summary = "Programmatic startup/shutdown of ASGI apps."
-dependencies = [
-    "sniffio",
-]
-files = [
-    {file = "asgi-lifespan-2.1.0.tar.gz", hash = "sha256:5e2effaf0bfe39829cf2d64e7ecc47c7d86d676a6599f7afba378c31f5e3a308"},
-    {file = "asgi_lifespan-2.1.0-py3-none-any.whl", hash = "sha256:ed840706680e28428c01e14afb3875d7d76d3206f3d5b2f2294e059b5c23804f"},
-]
-
-[[package]]
 name = "asgiref"
 version = "3.7.0"
 requires_python = ">=3.7"
@@ -70,16 +44,6 @@ summary = "ASGI specs, helper code, and adapters"
 files = [
     {file = "asgiref-3.7.0-py3-none-any.whl", hash = "sha256:14087924af5be5d8103d6f2edffe45a0bf7ab1b2a771b6f00a6db8c302f21f34"},
     {file = "asgiref-3.7.0.tar.gz", hash = "sha256:5d6c4a8a1c99f58eaa3bc392ee04e3587b693f09e3af1f3f16a09094f334eb52"},
-]
-
-[[package]]
-name = "async-timeout"
-version = "4.0.2"
-requires_python = ">=3.6"
-summary = "Timeout context manager for asyncio programs"
-files = [
-    {file = "async-timeout-4.0.2.tar.gz", hash = "sha256:2163e1640ddb52b7a8c80d0a67a08587e5d245cc9c553a74a847056bc2976b15"},
-    {file = "async_timeout-4.0.2-py3-none-any.whl", hash = "sha256:8ca1e4fcf50d07413d66d1a5e416e42cfdf5851c981d679a09851a6853383b3c"},
 ]
 
 [[package]]
@@ -122,52 +86,33 @@ version = "0.1.0"
 requires_python = ">=3.11"
 git = "https://github.com/atumm-ra/atumm-services-user.git"
 ref = "dev"
-revision = "ac8c1deb93d30fe253a160cc7f262acfc1e6f687"
+revision = "d830e9c5d07ce0589b6eb029e10341f4c71b4141"
 summary = "User Webservice"
 dependencies = [
+    "PyJWT<2.0.0,>=1.7.1",
     "atumm-core @ git+https://github.com/atumm-ra/atumm-core.git@dev",
-    "pydantic<3.0,>=1.10",
+    "beanie>=1.21.0",
+    "injector>=0.21.0",
+    "py-bcrypt>=0.4",
+    "pydantic<2.0.0",
 ]
 
 [[package]]
 name = "beanie"
-version = "1.19.1"
+version = "1.21.0"
 requires_python = ">=3.7,<4.0"
 summary = "Asynchronous Python ODM for MongoDB"
 dependencies = [
     "click>=7",
-    "lazy-model>=0.0.3",
-    "motor<4.0,>=2.5",
-    "pydantic>=1.10.0",
+    "lazy-model==0.1.0b0",
+    "motor<4.0.0,>=2.5.0",
+    "pydantic<3.0,>=1.10",
     "toml",
+    "typing-extensions>=4.7",
 ]
 files = [
-    {file = "beanie-1.19.1-py3-none-any.whl", hash = "sha256:98499e5875e25211b14e78be18a7af9ebf1533d630d27f29d9e6fd3b3dcdc92d"},
-    {file = "beanie-1.19.1.tar.gz", hash = "sha256:82de69b7375f169839f21dd6ffd6760af4c7004e34f0648fa86a657a99ec9dd9"},
-]
-
-[[package]]
-name = "behave"
-version = "1.2.6"
-requires_python = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
-summary = "behave is behaviour-driven development, Python style"
-dependencies = [
-    "parse-type>=0.4.2",
-    "parse>=1.8.2",
-    "six>=1.11",
-]
-files = [
-    {file = "behave-1.2.6-py2.py3-none-any.whl", hash = "sha256:ebda1a6c9e5bfe95c5f9f0a2794e01c7098b3dde86c10a95d8621c5907ff6f1c"},
-    {file = "behave-1.2.6.tar.gz", hash = "sha256:b9662327aa53294c1351b0a9c369093ccec1d21026f050c3bd9b3e5cccf81a86"},
-]
-
-[[package]]
-name = "billiard"
-version = "3.6.4.0"
-summary = "Python multiprocessing fork with improvements and bugfixes"
-files = [
-    {file = "billiard-3.6.4.0-py3-none-any.whl", hash = "sha256:87103ea78fa6ab4d5c751c4909bcff74617d985de7fa8b672cf8618afd5a875b"},
-    {file = "billiard-3.6.4.0.tar.gz", hash = "sha256:299de5a8da28a783d51b197d496bef4f1595dd023a93a4f59dde1886ae905547"},
+    {file = "beanie-1.21.0-py3-none-any.whl", hash = "sha256:180a6d5e854297be2da84689b03509e7dc4f40f00c58a894a17ad40a00630838"},
+    {file = "beanie-1.21.0.tar.gz", hash = "sha256:df1bcac1d5834730d3a1e461814fd0dfa173d91daca047b4d8ddcbf54343b4fd"},
 ]
 
 [[package]]
@@ -200,26 +145,6 @@ git = "https://github.com/atumm-org/buti.git"
 ref = "dev"
 revision = "528a2d7e0649c330e5e303fed4f6287442cc35c9"
 summary = "A modular app bootloader"
-
-[[package]]
-name = "celery"
-version = "5.2.7"
-requires_python = ">=3.7"
-summary = "Distributed Task Queue."
-dependencies = [
-    "billiard<4.0,>=3.6.4.0",
-    "click-didyoumean>=0.0.3",
-    "click-plugins>=1.1.1",
-    "click-repl>=0.2.0",
-    "click<9.0,>=8.0.3",
-    "kombu<6.0,>=5.2.3",
-    "pytz>=2021.3",
-    "vine<6.0,>=5.0.0",
-]
-files = [
-    {file = "celery-5.2.7-py3-none-any.whl", hash = "sha256:138420c020cd58d6707e6257b6beda91fd39af7afde5d36c6334d175302c0e14"},
-    {file = "celery-5.2.7.tar.gz", hash = "sha256:fafbd82934d30f8a004f81e8f7a062e31413a23d444be8ee3326553915958c6d"},
-]
 
 [[package]]
 name = "certifi"
@@ -256,45 +181,6 @@ dependencies = [
 files = [
     {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
     {file = "click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
-]
-
-[[package]]
-name = "click-didyoumean"
-version = "0.3.0"
-requires_python = ">=3.6.2,<4.0.0"
-summary = "Enables git-like *did-you-mean* feature in click"
-dependencies = [
-    "click>=7",
-]
-files = [
-    {file = "click-didyoumean-0.3.0.tar.gz", hash = "sha256:f184f0d851d96b6d29297354ed981b7dd71df7ff500d82fa6d11f0856bee8035"},
-    {file = "click_didyoumean-0.3.0-py3-none-any.whl", hash = "sha256:a0713dc7a1de3f06bc0df5a9567ad19ead2d3d5689b434768a6145bff77c0667"},
-]
-
-[[package]]
-name = "click-plugins"
-version = "1.1.1"
-summary = "An extension module for click to enable registering CLI commands via setuptools entry-points."
-dependencies = [
-    "click>=4.0",
-]
-files = [
-    {file = "click-plugins-1.1.1.tar.gz", hash = "sha256:46ab999744a9d831159c3411bb0c79346d94a444df9a3a3742e9ed63645f264b"},
-    {file = "click_plugins-1.1.1-py2.py3-none-any.whl", hash = "sha256:5d262006d3222f5057fd81e1623d4443e41dcda5dc815c06b442aa3c02889fc8"},
-]
-
-[[package]]
-name = "click-repl"
-version = "0.2.0"
-summary = "REPL plugin for Click"
-dependencies = [
-    "click",
-    "prompt-toolkit",
-    "six",
-]
-files = [
-    {file = "click-repl-0.2.0.tar.gz", hash = "sha256:cd12f68d745bf6151210790540b4cb064c7b13e571bc64b6957d98d120dacfd8"},
-    {file = "click_repl-0.2.0-py3-none-any.whl", hash = "sha256:94b3fbbc9406a236f176e0506524b2937e4b23b6f4c0c0b2a0a83f8a64e9194b"},
 ]
 
 [[package]]
@@ -537,11 +423,11 @@ files = [
 
 [[package]]
 name = "injector"
-version = "0.20.1"
+version = "0.21.0"
 summary = "Injector - Python dependency injection framework, inspired by Guice"
 files = [
-    {file = "injector-0.20.1-py2.py3-none-any.whl", hash = "sha256:f8fc5994176a8cf6b0455a8d1558c588733474ef17795553464e7e9d2f94eaf5"},
-    {file = "injector-0.20.1.tar.gz", hash = "sha256:8661b49a2f8309ce61e3a6a82b7acb5e225c4bde8e17d1610c893a670dff223a"},
+    {file = "injector-0.21.0-py2.py3-none-any.whl", hash = "sha256:3942c5e4c501d390d5ad1b8d7d486ef93b844934afeeb17211acb6c4ca29eeb4"},
+    {file = "injector-0.21.0.tar.gz", hash = "sha256:919eb6b9f96f40bf98fda34c79762b217bd1544d9adc35805ff2948e92356c9c"},
 ]
 
 [[package]]
@@ -555,30 +441,16 @@ files = [
 ]
 
 [[package]]
-name = "kombu"
-version = "5.2.4"
-requires_python = ">=3.7"
-summary = "Messaging library for Python."
-dependencies = [
-    "amqp<6.0.0,>=5.0.9",
-    "vine",
-]
-files = [
-    {file = "kombu-5.2.4-py3-none-any.whl", hash = "sha256:8b213b24293d3417bcf0d2f5537b7f756079e3ea232a8386dcc89a59fd2361a4"},
-    {file = "kombu-5.2.4.tar.gz", hash = "sha256:37cee3ee725f94ea8bb173eaab7c1760203ea53bbebae226328600f9d2799610"},
-]
-
-[[package]]
 name = "lazy-model"
-version = "0.0.5"
+version = "0.1.0b0"
 requires_python = ">=3.7,<4.0"
 summary = ""
 dependencies = [
     "pydantic>=1.9.0",
 ]
 files = [
-    {file = "lazy-model-0.0.5.tar.gz", hash = "sha256:2d98f9dfe275012477555a439dceb56364793a0f266758d1a33267d68e8fbc76"},
-    {file = "lazy_model-0.0.5-py3-none-any.whl", hash = "sha256:8b4fc5eac99029f84b11b21e81a6894911a475f25e53227b7e44833e62e26553"},
+    {file = "lazy-model-0.1.0b0.tar.gz", hash = "sha256:90dd0b26d3033fadc18f697ab9cdd66cdf8e55469f32f2d88efd92610468e2d6"},
+    {file = "lazy_model-0.1.0b0-py3-none-any.whl", hash = "sha256:74406bd54cf96a89b73570d8409b538c660ae4d0bfb4b30bbe46db2658a5937d"},
 ]
 
 [[package]]
@@ -589,32 +461,6 @@ summary = "Rolling backport of unittest.mock for all Pythons"
 files = [
     {file = "mock-5.0.2-py3-none-any.whl", hash = "sha256:0e0bc5ba78b8db3667ad636d964eb963dc97a59f04c6f6214c5f0e4a8f726c56"},
     {file = "mock-5.0.2.tar.gz", hash = "sha256:06f18d7d65b44428202b145a9a36e99c2ee00d1eb992df0caf881d4664377891"},
-]
-
-[[package]]
-name = "mongomock"
-version = "4.1.2"
-summary = "Fake pymongo stub for testing simple MongoDB-dependent code"
-dependencies = [
-    "packaging",
-    "sentinels",
-]
-files = [
-    {file = "mongomock-4.1.2-py2.py3-none-any.whl", hash = "sha256:08a24938a05c80c69b6b8b19a09888d38d8c6e7328547f94d46cadb7f47209f2"},
-    {file = "mongomock-4.1.2.tar.gz", hash = "sha256:f06cd62afb8ae3ef63ba31349abd220a657ef0dd4f0243a29587c5213f931b7d"},
-]
-
-[[package]]
-name = "mongomock-motor"
-version = "0.0.20"
-requires_python = ">=3.6"
-summary = "Library for mocking AsyncIOMotorClient built on top of mongomock."
-dependencies = [
-    "mongomock<5.0.0,>=3.23.0",
-]
-files = [
-    {file = "mongomock_motor-0.0.20-py3-none-any.whl", hash = "sha256:908bc8f969ced87e11e2c526b3f215d51410c28148cc7374d0ee285d64c98d91"},
-    {file = "mongomock_motor-0.0.20.tar.gz", hash = "sha256:f708073db304ebee95bfd37ea9ef93019196082cd11dd5e61d34c9e8be213521"},
 ]
 
 [[package]]
@@ -670,29 +516,6 @@ files = [
 ]
 
 [[package]]
-name = "parse"
-version = "1.19.0"
-summary = "parse() is the opposite of format()"
-files = [
-    {file = "parse-1.19.0-py2.py3-none-any.whl", hash = "sha256:6ce007645384a91150cb7cd7c8a9db2559e273c2e2542b508cd1e342508c2601"},
-    {file = "parse-1.19.0.tar.gz", hash = "sha256:9ff82852bcb65d139813e2a5197627a94966245c897796760a3a2a8eb66f020b"},
-]
-
-[[package]]
-name = "parse-type"
-version = "0.6.0"
-requires_python = ">=2.7, !=3.0.*, !=3.1.*"
-summary = "Simplifies to build parse types based on the parse module"
-dependencies = [
-    "parse>=1.18.0; python_version >= \"3.0\"",
-    "six>=1.11",
-]
-files = [
-    {file = "parse_type-0.6.0-py2.py3-none-any.whl", hash = "sha256:c148e88436bd54dab16484108e882be3367f44952c649c9cd6b82a7370b650cb"},
-    {file = "parse_type-0.6.0.tar.gz", hash = "sha256:20b43c660e48ed47f433bce5873a2a3d4b9b6a7ba47bd7f7d2a7cec4bec5551f"},
-]
-
-[[package]]
 name = "pathspec"
 version = "0.11.1"
 requires_python = ">=3.7"
@@ -720,19 +543,6 @@ summary = "plugin and hook calling mechanisms for python"
 files = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
-]
-
-[[package]]
-name = "prompt-toolkit"
-version = "3.0.38"
-requires_python = ">=3.7.0"
-summary = "Library for building powerful interactive command lines in Python"
-dependencies = [
-    "wcwidth",
-]
-files = [
-    {file = "prompt_toolkit-3.0.38-py3-none-any.whl", hash = "sha256:45ea77a2f7c60418850331366c81cf6b5b9cf4c7fd34616f733c5427e6abbb1f"},
-    {file = "prompt_toolkit-3.0.38.tar.gz", hash = "sha256:23ac5d50538a9a38c8bde05fecb47d0b403ecd0662857a86f886f798563d5b9b"},
 ]
 
 [[package]]
@@ -885,15 +695,6 @@ files = [
 ]
 
 [[package]]
-name = "python-decouple"
-version = "3.8"
-summary = "Strict separation of settings from code."
-files = [
-    {file = "python-decouple-3.8.tar.gz", hash = "sha256:ba6e2657d4f376ecc46f77a3a615e058d93ba5e465c01bbe57289bfb7cce680f"},
-    {file = "python_decouple-3.8-py3-none-any.whl", hash = "sha256:d0d45340815b25f4de59c974b855bb38d03151d81b037d9e3f463b0c9f8cbd66"},
-]
-
-[[package]]
 name = "python-dotenv"
 version = "1.0.0"
 requires_python = ">=3.8"
@@ -901,45 +702,6 @@ summary = "Read key-value pairs from a .env file and set them as environment var
 files = [
     {file = "python-dotenv-1.0.0.tar.gz", hash = "sha256:a8df96034aae6d2d50a4ebe8216326c61c3eb64836776504fcca410e5937a3ba"},
     {file = "python_dotenv-1.0.0-py3-none-any.whl", hash = "sha256:f5971a9226b701070a4bf2c38c89e5a3f0d64de8debda981d1db98583009122a"},
-]
-
-[[package]]
-name = "pythondi"
-version = "1.2.4"
-requires_python = ">=3.5"
-summary = "Python dependency injection library"
-files = [
-    {file = "pythondi-1.2.4.tar.gz", hash = "sha256:9d5b0c13b172b655a170ee4f5fce63e05e93e24138623b11f3b38f3bec6b2c56"},
-]
-
-[[package]]
-name = "pytz"
-version = "2023.3"
-summary = "World timezone definitions, modern and historical"
-files = [
-    {file = "pytz-2023.3-py2.py3-none-any.whl", hash = "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb"},
-    {file = "pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"},
-]
-
-[[package]]
-name = "redis"
-version = "4.5.5"
-requires_python = ">=3.7"
-summary = "Python client for Redis database and key-value store"
-dependencies = [
-    "async-timeout>=4.0.2; python_full_version <= \"3.11.2\"",
-]
-files = [
-    {file = "redis-4.5.5-py3-none-any.whl", hash = "sha256:77929bc7f5dab9adf3acba2d3bb7d7658f1e0c2f1cafe7eb36434e751c471119"},
-    {file = "redis-4.5.5.tar.gz", hash = "sha256:dc87a0bdef6c8bfe1ef1e1c40be7034390c2ae02d92dcd0c7ca1729443899880"},
-]
-
-[[package]]
-name = "sentinels"
-version = "1.0.0"
-summary = "Various objects to denote special meanings in python"
-files = [
-    {file = "sentinels-1.0.0.tar.gz", hash = "sha256:7be0704d7fe1925e397e92d18669ace2f619c92b5d4eb21a89f31e026f9ff4b1"},
 ]
 
 [[package]]
@@ -1023,12 +785,12 @@ files = [
 
 [[package]]
 name = "typing-extensions"
-version = "4.5.0"
+version = "4.7.1"
 requires_python = ">=3.7"
 summary = "Backported and Experimental Type Hints for Python 3.7+"
 files = [
-    {file = "typing_extensions-4.5.0-py3-none-any.whl", hash = "sha256:fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4"},
-    {file = "typing_extensions-4.5.0.tar.gz", hash = "sha256:5cb5f4a79139d699607b3ef622a1dedafa84e115ab0024e0d9c044a9479ca7cb"},
+    {file = "typing_extensions-4.7.1-py3-none-any.whl", hash = "sha256:440d5dd3af93b060174bf433bccd69b0babc3b15b1a8dca43789fd7f61514b36"},
+    {file = "typing_extensions-4.7.1.tar.gz", hash = "sha256:b75ddc264f0ba5615db7ba217daeb99701ad295353c45f9e95963337ceeeffb2"},
 ]
 
 [[package]]
@@ -1066,15 +828,6 @@ files = [
 ]
 
 [[package]]
-name = "ulid-py"
-version = "1.1.0"
-summary = "Universally Unique Lexicographically Sortable Identifier"
-files = [
-    {file = "ulid-py-1.1.0.tar.gz", hash = "sha256:dc6884be91558df077c3011b9fb0c87d1097cb8fc6534b11f310161afd5738f0"},
-    {file = "ulid_py-1.1.0-py2.py3-none-any.whl", hash = "sha256:b56a0f809ef90d6020b21b89a87a48edc7c03aea80e5ed5174172e82d76e3987"},
-]
-
-[[package]]
 name = "uvicorn"
 version = "0.22.0"
 requires_python = ">=3.7"
@@ -1101,23 +854,4 @@ files = [
     {file = "uvloop-0.17.0-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:2a6149e1defac0faf505406259561bc14b034cdf1d4711a3ddcdfbaa8d825a05"},
     {file = "uvloop-0.17.0-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:6708f30db9117f115eadc4f125c2a10c1a50d711461699a0cbfaa45b9a78e376"},
     {file = "uvloop-0.17.0.tar.gz", hash = "sha256:0ddf6baf9cf11a1a22c71487f39f15b2cf78eb5bde7e5b45fbb99e8a9d91b9e1"},
-]
-
-[[package]]
-name = "vine"
-version = "5.0.0"
-requires_python = ">=3.6"
-summary = "Promises, promises, promises."
-files = [
-    {file = "vine-5.0.0-py2.py3-none-any.whl", hash = "sha256:4c9dceab6f76ed92105027c49c823800dd33cacce13bdedc5b914e3514b7fb30"},
-    {file = "vine-5.0.0.tar.gz", hash = "sha256:7d3b1624a953da82ef63462013bbd271d3eb75751489f9807598e8f340bd637e"},
-]
-
-[[package]]
-name = "wcwidth"
-version = "0.2.6"
-summary = "Measures the displayed width of unicode strings in a terminal"
-files = [
-    {file = "wcwidth-0.2.6-py2.py3-none-any.whl", hash = "sha256:795b138f6875577cd91bba52baf9e445cd5118fd32723b460e30a0af30ea230e"},
-    {file = "wcwidth-0.2.6.tar.gz", hash = "sha256:a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"},
 ]
