@@ -6,20 +6,7 @@ groups = ["default", "dev"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:59a3e92fb318ed726051d90674dc65df28d5ec402086e4b02f8958e4f3d03a29"
-
-[[package]]
-name = "amqp"
-version = "5.1.1"
-requires_python = ">=3.6"
-summary = "Low-level AMQP client for Python (fork of amqplib)."
-dependencies = [
-    "vine>=5.0.0",
-]
-files = [
-    {file = "amqp-5.1.1-py3-none-any.whl", hash = "sha256:6f0956d2c23d8fa6e7691934d8c3930eadb44972cbbd1a7ae3a520f735d43359"},
-    {file = "amqp-5.1.1.tar.gz", hash = "sha256:2c1b13fecc0893e946c65cbd5f36427861cffa4ea2201d8f6fca22e2a373b5e2"},
-]
+content_hash = "sha256:8520ab06c423cc0f7ee55bacf8173211a77e835fc3a73d21056bc3fe2c52178d"
 
 [[package]]
 name = "anyio"
@@ -57,16 +44,6 @@ summary = "ASGI specs, helper code, and adapters"
 files = [
     {file = "asgiref-3.7.0-py3-none-any.whl", hash = "sha256:14087924af5be5d8103d6f2edffe45a0bf7ab1b2a771b6f00a6db8c302f21f34"},
     {file = "asgiref-3.7.0.tar.gz", hash = "sha256:5d6c4a8a1c99f58eaa3bc392ee04e3587b693f09e3af1f3f16a09094f334eb52"},
-]
-
-[[package]]
-name = "async-timeout"
-version = "4.0.2"
-requires_python = ">=3.6"
-summary = "Timeout context manager for asyncio programs"
-files = [
-    {file = "async-timeout-4.0.2.tar.gz", hash = "sha256:2163e1640ddb52b7a8c80d0a67a08587e5d245cc9c553a74a847056bc2976b15"},
-    {file = "async_timeout-4.0.2-py3-none-any.whl", hash = "sha256:8ca1e4fcf50d07413d66d1a5e416e42cfdf5851c981d679a09851a6853383b3c"},
 ]
 
 [[package]]
@@ -109,7 +86,7 @@ version = "0.1.0"
 requires_python = ">=3.11"
 git = "https://github.com/atumm-ra/atumm-services-user.git"
 ref = "dev"
-revision = "1f3f0a896ca6cc402439ba363ac106dd945fb083"
+revision = "d830e9c5d07ce0589b6eb029e10341f4c71b4141"
 summary = "User Webservice"
 dependencies = [
     "PyJWT<2.0.0,>=1.7.1",
@@ -136,15 +113,6 @@ dependencies = [
 files = [
     {file = "beanie-1.21.0-py3-none-any.whl", hash = "sha256:180a6d5e854297be2da84689b03509e7dc4f40f00c58a894a17ad40a00630838"},
     {file = "beanie-1.21.0.tar.gz", hash = "sha256:df1bcac1d5834730d3a1e461814fd0dfa173d91daca047b4d8ddcbf54343b4fd"},
-]
-
-[[package]]
-name = "billiard"
-version = "3.6.4.0"
-summary = "Python multiprocessing fork with improvements and bugfixes"
-files = [
-    {file = "billiard-3.6.4.0-py3-none-any.whl", hash = "sha256:87103ea78fa6ab4d5c751c4909bcff74617d985de7fa8b672cf8618afd5a875b"},
-    {file = "billiard-3.6.4.0.tar.gz", hash = "sha256:299de5a8da28a783d51b197d496bef4f1595dd023a93a4f59dde1886ae905547"},
 ]
 
 [[package]]
@@ -177,26 +145,6 @@ git = "https://github.com/atumm-org/buti.git"
 ref = "dev"
 revision = "528a2d7e0649c330e5e303fed4f6287442cc35c9"
 summary = "A modular app bootloader"
-
-[[package]]
-name = "celery"
-version = "5.2.7"
-requires_python = ">=3.7"
-summary = "Distributed Task Queue."
-dependencies = [
-    "billiard<4.0,>=3.6.4.0",
-    "click-didyoumean>=0.0.3",
-    "click-plugins>=1.1.1",
-    "click-repl>=0.2.0",
-    "click<9.0,>=8.0.3",
-    "kombu<6.0,>=5.2.3",
-    "pytz>=2021.3",
-    "vine<6.0,>=5.0.0",
-]
-files = [
-    {file = "celery-5.2.7-py3-none-any.whl", hash = "sha256:138420c020cd58d6707e6257b6beda91fd39af7afde5d36c6334d175302c0e14"},
-    {file = "celery-5.2.7.tar.gz", hash = "sha256:fafbd82934d30f8a004f81e8f7a062e31413a23d444be8ee3326553915958c6d"},
-]
 
 [[package]]
 name = "certifi"
@@ -233,45 +181,6 @@ dependencies = [
 files = [
     {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
     {file = "click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
-]
-
-[[package]]
-name = "click-didyoumean"
-version = "0.3.0"
-requires_python = ">=3.6.2,<4.0.0"
-summary = "Enables git-like *did-you-mean* feature in click"
-dependencies = [
-    "click>=7",
-]
-files = [
-    {file = "click-didyoumean-0.3.0.tar.gz", hash = "sha256:f184f0d851d96b6d29297354ed981b7dd71df7ff500d82fa6d11f0856bee8035"},
-    {file = "click_didyoumean-0.3.0-py3-none-any.whl", hash = "sha256:a0713dc7a1de3f06bc0df5a9567ad19ead2d3d5689b434768a6145bff77c0667"},
-]
-
-[[package]]
-name = "click-plugins"
-version = "1.1.1"
-summary = "An extension module for click to enable registering CLI commands via setuptools entry-points."
-dependencies = [
-    "click>=4.0",
-]
-files = [
-    {file = "click-plugins-1.1.1.tar.gz", hash = "sha256:46ab999744a9d831159c3411bb0c79346d94a444df9a3a3742e9ed63645f264b"},
-    {file = "click_plugins-1.1.1-py2.py3-none-any.whl", hash = "sha256:5d262006d3222f5057fd81e1623d4443e41dcda5dc815c06b442aa3c02889fc8"},
-]
-
-[[package]]
-name = "click-repl"
-version = "0.2.0"
-summary = "REPL plugin for Click"
-dependencies = [
-    "click",
-    "prompt-toolkit",
-    "six",
-]
-files = [
-    {file = "click-repl-0.2.0.tar.gz", hash = "sha256:cd12f68d745bf6151210790540b4cb064c7b13e571bc64b6957d98d120dacfd8"},
-    {file = "click_repl-0.2.0-py3-none-any.whl", hash = "sha256:94b3fbbc9406a236f176e0506524b2937e4b23b6f4c0c0b2a0a83f8a64e9194b"},
 ]
 
 [[package]]
@@ -532,20 +441,6 @@ files = [
 ]
 
 [[package]]
-name = "kombu"
-version = "5.2.4"
-requires_python = ">=3.7"
-summary = "Messaging library for Python."
-dependencies = [
-    "amqp<6.0.0,>=5.0.9",
-    "vine",
-]
-files = [
-    {file = "kombu-5.2.4-py3-none-any.whl", hash = "sha256:8b213b24293d3417bcf0d2f5537b7f756079e3ea232a8386dcc89a59fd2361a4"},
-    {file = "kombu-5.2.4.tar.gz", hash = "sha256:37cee3ee725f94ea8bb173eaab7c1760203ea53bbebae226328600f9d2799610"},
-]
-
-[[package]]
 name = "lazy-model"
 version = "0.1.0b0"
 requires_python = ">=3.7,<4.0"
@@ -648,19 +543,6 @@ summary = "plugin and hook calling mechanisms for python"
 files = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
-]
-
-[[package]]
-name = "prompt-toolkit"
-version = "3.0.38"
-requires_python = ">=3.7.0"
-summary = "Library for building powerful interactive command lines in Python"
-dependencies = [
-    "wcwidth",
-]
-files = [
-    {file = "prompt_toolkit-3.0.38-py3-none-any.whl", hash = "sha256:45ea77a2f7c60418850331366c81cf6b5b9cf4c7fd34616f733c5427e6abbb1f"},
-    {file = "prompt_toolkit-3.0.38.tar.gz", hash = "sha256:23ac5d50538a9a38c8bde05fecb47d0b403ecd0662857a86f886f798563d5b9b"},
 ]
 
 [[package]]
@@ -813,15 +695,6 @@ files = [
 ]
 
 [[package]]
-name = "python-decouple"
-version = "3.8"
-summary = "Strict separation of settings from code."
-files = [
-    {file = "python-decouple-3.8.tar.gz", hash = "sha256:ba6e2657d4f376ecc46f77a3a615e058d93ba5e465c01bbe57289bfb7cce680f"},
-    {file = "python_decouple-3.8-py3-none-any.whl", hash = "sha256:d0d45340815b25f4de59c974b855bb38d03151d81b037d9e3f463b0c9f8cbd66"},
-]
-
-[[package]]
 name = "python-dotenv"
 version = "1.0.0"
 requires_python = ">=3.8"
@@ -829,37 +702,6 @@ summary = "Read key-value pairs from a .env file and set them as environment var
 files = [
     {file = "python-dotenv-1.0.0.tar.gz", hash = "sha256:a8df96034aae6d2d50a4ebe8216326c61c3eb64836776504fcca410e5937a3ba"},
     {file = "python_dotenv-1.0.0-py3-none-any.whl", hash = "sha256:f5971a9226b701070a4bf2c38c89e5a3f0d64de8debda981d1db98583009122a"},
-]
-
-[[package]]
-name = "pythondi"
-version = "1.2.4"
-requires_python = ">=3.5"
-summary = "Python dependency injection library"
-files = [
-    {file = "pythondi-1.2.4.tar.gz", hash = "sha256:9d5b0c13b172b655a170ee4f5fce63e05e93e24138623b11f3b38f3bec6b2c56"},
-]
-
-[[package]]
-name = "pytz"
-version = "2023.3"
-summary = "World timezone definitions, modern and historical"
-files = [
-    {file = "pytz-2023.3-py2.py3-none-any.whl", hash = "sha256:a151b3abb88eda1d4e34a9814df37de2a80e301e68ba0fd856fb9b46bfbbbffb"},
-    {file = "pytz-2023.3.tar.gz", hash = "sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"},
-]
-
-[[package]]
-name = "redis"
-version = "4.5.5"
-requires_python = ">=3.7"
-summary = "Python client for Redis database and key-value store"
-dependencies = [
-    "async-timeout>=4.0.2; python_full_version <= \"3.11.2\"",
-]
-files = [
-    {file = "redis-4.5.5-py3-none-any.whl", hash = "sha256:77929bc7f5dab9adf3acba2d3bb7d7658f1e0c2f1cafe7eb36434e751c471119"},
-    {file = "redis-4.5.5.tar.gz", hash = "sha256:dc87a0bdef6c8bfe1ef1e1c40be7034390c2ae02d92dcd0c7ca1729443899880"},
 ]
 
 [[package]]
@@ -986,15 +828,6 @@ files = [
 ]
 
 [[package]]
-name = "ulid-py"
-version = "1.1.0"
-summary = "Universally Unique Lexicographically Sortable Identifier"
-files = [
-    {file = "ulid-py-1.1.0.tar.gz", hash = "sha256:dc6884be91558df077c3011b9fb0c87d1097cb8fc6534b11f310161afd5738f0"},
-    {file = "ulid_py-1.1.0-py2.py3-none-any.whl", hash = "sha256:b56a0f809ef90d6020b21b89a87a48edc7c03aea80e5ed5174172e82d76e3987"},
-]
-
-[[package]]
 name = "uvicorn"
 version = "0.22.0"
 requires_python = ">=3.7"
@@ -1021,23 +854,4 @@ files = [
     {file = "uvloop-0.17.0-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:2a6149e1defac0faf505406259561bc14b034cdf1d4711a3ddcdfbaa8d825a05"},
     {file = "uvloop-0.17.0-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:6708f30db9117f115eadc4f125c2a10c1a50d711461699a0cbfaa45b9a78e376"},
     {file = "uvloop-0.17.0.tar.gz", hash = "sha256:0ddf6baf9cf11a1a22c71487f39f15b2cf78eb5bde7e5b45fbb99e8a9d91b9e1"},
-]
-
-[[package]]
-name = "vine"
-version = "5.0.0"
-requires_python = ">=3.6"
-summary = "Promises, promises, promises."
-files = [
-    {file = "vine-5.0.0-py2.py3-none-any.whl", hash = "sha256:4c9dceab6f76ed92105027c49c823800dd33cacce13bdedc5b914e3514b7fb30"},
-    {file = "vine-5.0.0.tar.gz", hash = "sha256:7d3b1624a953da82ef63462013bbd271d3eb75751489f9807598e8f340bd637e"},
-]
-
-[[package]]
-name = "wcwidth"
-version = "0.2.6"
-summary = "Measures the displayed width of unicode strings in a terminal"
-files = [
-    {file = "wcwidth-0.2.6-py2.py3-none-any.whl", hash = "sha256:795b138f6875577cd91bba52baf9e445cd5118fd32723b460e30a0af30ea230e"},
-    {file = "wcwidth-0.2.6.tar.gz", hash = "sha256:a5220780a404dbe3353789870978e472cfe477761f06ee55077256e509b156d0"},
 ]
