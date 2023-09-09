@@ -26,7 +26,7 @@ dependencies = [
     "injector>=0.20.1",
     "py-bcrypt>=0.4",
     "fastapi-jwt-auth>=0.5.0",
-    "buti @ git+https://github.com/atumm-org/buti.git@dev",
+    "buti @ git+https://github.com/atumm-org/buti.git@master",
     "python-dotenv>=1.0.0",
     "atumm-core @ git+https://github.com/atumm-ra/atumm-core.git@dev",
     "atumm-services-health @ git+https://github.com/atumm-ra/atumm-services-health.git@dev",
