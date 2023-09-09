@@ -6,7 +6,7 @@ groups = ["default", "dev"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:8520ab06c423cc0f7ee55bacf8173211a77e835fc3a73d21056bc3fe2c52178d"
+content_hash = "sha256:5dfc4c88dca57cbdcf840e0e72e363e622b5bc55eac6db930f3a6b9de1d5c9a7"
 
 [[package]]
 name = "anyio"
@@ -142,8 +142,8 @@ name = "buti"
 version = "1.0.0"
 requires_python = ">=3.9"
 git = "https://github.com/atumm-org/buti.git"
-ref = "dev"
-revision = "528a2d7e0649c330e5e303fed4f6287442cc35c9"
+ref = "master"
+revision = "7b6f8624c6d8493add5ea94c122352f500cc3f1a"
 summary = "A modular app bootloader"
 
 [[package]]
