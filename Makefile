@@ -66,7 +66,7 @@ testf:					## run test filtered by pattern
 	STAGE=test pdm run pytest -k $(TARGET_ARGS)
 
 new-svc:
-	pdm run python atumm/core/entrypoints/cli/commands.py $(TARGET_ARGS)
+	pdm run python atumm-ext/atumm-core/atumm/core/entrypoints/cli/commands.py create-service $(TARGET_ARGS)
 
 new-rsc:			## create a new rest resource within a service (service_name, resource_name), ex: make new-resource user tokens
 	pdm run python atumm/core/entrypoints/cli/commands.py create-rest-resource $(TARGET_ARGS)
