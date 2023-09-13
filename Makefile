@@ -3,7 +3,7 @@ TARGET_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 # ...and turn them into do-nothing targets
 $(eval $(TARGET_ARGS):;@:)
 
-COMPOSE=docker compose
+COMPOSE=docker-compose
 
 help:		   		## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
@@ -48,9 +48,12 @@ clean-restart: 			## Stop, Rebuild and start a specific container(usage: make cl
 # local
 format:
 	@sh -c " \
-		pdm run ssort atumm/**; \
-		pdm run isort atumm/**; \
-		pdm run black atumm/** \
+		pdm run ssort thisapp/**; \
+		pdm run isort thisapp/**; \
+		pdm run black thisapp/**; \
+		pdm run ssort atumm-ext/**; \
+		pdm run isort atumm-ext/**; \
+		pdm run black atumm-ext/**; \
 	"
 
 install:

@@ -1,54 +1,39 @@
 import os
-from functools import lru_cache
 
-from atumm.core.infra.config import Config
+from atumm.core.infra.config import Config, configure
+from atumm.extensions.buti.keys import AtummContainerKeys
+from atumm.services.user import UserConfig  # to make sure UserConfig is registered
+from buti.core import BootableComponent, ButiStore
+from injector import Module, provider, singleton
 
 
+@configure
 class AppConfig(Config):
+    STAGE: str = "dev"
+    DEBUG: bool
     APP_HOST: str
     APP_PORT: int
 
-    JWT_SECRET_KEY: str
-    JWT_ALGORITHM: str
+    # OpenAPI configs
+    API_TITLE: str
+    API_DESCRIPTION: str = ""
+    API_VERSION: str = "1.0.0"
 
-    PASSWORD_KEY: str
-
-    MONGO_HOST: str
-    MONGO_PORT: int
-    MONGO_USER: str
-    MONGO_PASS: str
     MONGO_DB: str
     MONGO_URL: str
 
 
-class DevelopmentConfig(AppConfig):
-    pass
+env_file = ".env" if os.environ.get("STAGE") != "test" else ".env.test"
+config = configure.build(env_file=env_file)
 
 
-class LocalConfig(AppConfig):
-    pass
+class ConfigProvider(Module):
+    @singleton
+    @provider
+    def provide(self) -> Config:
+        return config
 
 
-class ProductionConfig(AppConfig):
-    pass
-
-
-class TestConfig(AppConfig):
-    pass
-
-
-
-def get_config() -> Config:
-    env = os.environ['STAGE']
-    
-    match env:
-        case 'local':
-            return LocalConfig(_env_file=".env")
-        case 'test':
-            return TestConfig(_env_file=".env.test")
-        case 'dev':
-            return DevelopmentConfig(_env_file=".env")
-        case 'prod':
-            return ProductionConfig(_env_file=".env")
-        case _:
-            raise ValueError("invalid '{env}' stage")
+class ConfigComponent(BootableComponent):
+    def boot(self, object_store: ButiStore):
+        object_store.set(AtummContainerKeys.config, config)

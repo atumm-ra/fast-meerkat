@@ -1,29 +1,28 @@
-from beanie import init_beanie
+from atumm.core.infra.config import Config
+from atumm.services.user.dataproviders.beanie.models import User
+from atumm.extensions.beanie import init_my_beanie
+from atumm.extensions.buti.keys import AtummContainerKeys
 from buti import BootableComponent, ButiStore
 from fastapi import FastAPI
 from injector import Injector
 from motor.motor_asyncio import AsyncIOMotorClient
-from thisapp.beanie import init_my_beanie
-
-from thisapp.buti.keys import ContainerKeys
-from thisapp.config import Config
 
 
 class BeanieComponent(BootableComponent):
     def boot(self, object_store: ButiStore):
         # get the configuration manager and FastAPI from the store
-        config: Config = object_store.get(ContainerKeys.config)
-        app: FastAPI = object_store.get(ContainerKeys.app)
-        injector_obj: Injector = object_store.get(ContainerKeys.injector)
+        config: Config = object_store.get(AtummContainerKeys.config)
+        app: FastAPI = object_store.get(AtummContainerKeys.app)
+        injector_obj: Injector = object_store.get(AtummContainerKeys.injector)
         beanie_client: AsyncIOMotorClient = injector_obj.get(AsyncIOMotorClient)
-
+        
         @app.on_event("startup")
         async def beanie_startup():
-            await init_my_beanie(beanie_client, config.MONGO_DB)
+            await init_my_beanie(beanie_client, config.MONGO_DB, [User])
 
         @app.on_event("shutdown")
         async def beanie_shutdown():
             beanie_client.close()
 
         # Store the database connection in the ButiStore
-        object_store.set(ContainerKeys.beanie, beanie_client)
+        object_store.set(AtummContainerKeys.beanie, beanie_client)

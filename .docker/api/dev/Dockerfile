@@ -1,4 +1,4 @@
-FROM python:3.11.3-bullseye
+FROM python:3.11.5-bullseye
 
 ENV DOCKERIZE_VERSION v0.7.0
 
@@ -13,6 +13,7 @@ ENV STAGE=dev
 WORKDIR /home
 
 COPY ./ /home/
+RUN pip install --upgrade pip
 RUN pip install pdm
 
 
