@@ -28,9 +28,10 @@ dependencies = [
     "fastapi-jwt-auth>=0.5.0",
     "buti @ git+https://github.com/atumm-org/buti.git@master",
     "python-dotenv>=1.0.0",
-    "atumm-core @ git+https://github.com/atumm-ra/atumm-core.git@dev",
-    "atumm-services-health @ git+https://github.com/atumm-ra/atumm-services-health.git@dev",
-    "atumm-services-user @ git+https://github.com/atumm-ra/atumm-services-user.git@dev",
+    "atumm-core @ file:///${PROJECT_ROOT}/atumm-ext/atumm-core",
+    "atumm-extensions @ file:///${PROJECT_ROOT}/atumm-ext/atumm-extensions",
+    "atumm-service-health @ file:///${PROJECT_ROOT}/atumm-ext/atumm-services-health",
+    "atumm-service-user @ file:///${PROJECT_ROOT}/atumm-ext/atumm-services-user",
 ]
 
 

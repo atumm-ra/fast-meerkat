@@ -1,10 +1,32 @@
-import os
+import uvicorn
+from atumm.core.infra.config import Config, configure
+from atumm.extensions.buti.components.beanie import BeanieComponent
+from atumm.extensions.buti.components.config import ConfigComponent
+from atumm.extensions.buti.keys import AtummContainerKeys
+from atumm.extensions.fastapi.components import AuthJWTComponent, FastAPIComponent
+from atumm.services.health.infra.buti import HealthServiceComponent
+from atumm.services.user import UserConfig
+from atumm.services.user.infra.buti import UserServiceComponent
+from buti import Bootloader, ButiStore
 
-from buti import ButiStore
-from fastapi import FastAPI
+from thisapp.config import AppConfig
+from thisapp.init.buti.injector import InjectorComponent
 
-from thisapp.buti.bootloader import bootloader
-from thisapp.buti.keys import ContainerKeys
+app_components = [
+    ConfigComponent(),
+    InjectorComponent(),
+    FastAPIComponent(),
+    AuthJWTComponent(),
+    BeanieComponent(),
+    UserServiceComponent(),
+    HealthServiceComponent(),
+]
 
+config = configure.build(".env")
+bootloader = Bootloader(app_components)
 store: ButiStore = bootloader.boot()
-app: FastAPI = store.get(ContainerKeys.app)
+
+app = store.get(AtummContainerKeys.app)
+
+if __name__ == "__main__":
+    uvicorn.run(app=app, port=5000, log_level="info")

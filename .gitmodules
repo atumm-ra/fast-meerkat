@@ -7,3 +7,6 @@
 [submodule "atumm-ext/atumm-services-user"]
 	path = atumm-ext/atumm-services-user
 	url = git@github.com:atumm-ra/atumm-services-user.git
+[submodule "atumm-ext/atumm-extensions"]
+	path = atumm-ext/atumm-extensions
+	url = git@github.com:atumm-ra/atumm-extensions.git
