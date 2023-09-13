@@ -8,7 +8,7 @@ RUN wget https://github.com/jwilder/dockerize/archive/refs/heads/master.zip \
     && cd /home && rm -rf /tmp/dockerize-master
 
 
-FROM python:3.11.3-bullseye
+FROM python:3.11.5-bullseye
 
 
 ENV PYTHONBUFFERED=true
