@@ -43,7 +43,7 @@ thisapp/services/note
 │       └── user_list.py
 
 ├── dataproviders		# concrete data providers
-│   └── beanie
+│   └── alchemy
 │       ├── models.py
 │       └── repositories.py
 
