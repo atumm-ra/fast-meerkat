@@ -37,10 +37,7 @@ thisapp/services/note
 │   ├── repositories.py
 │   ├── exceptions.py
 │   └── usecases
-│       ├── get_user.py
-│       ├── login.py
-│       ├── register.py
-│       └── user_list.py
+│       └── add_new_note.py
 
 ├── dataproviders		# concrete data providers
 │   └── alchemy
@@ -49,18 +46,14 @@ thisapp/services/note
 
 ├── entrypoints		 # entrypoints of the service, such as RESTful API endpoints, cli...etc
 
-└── infra		# Contains infrastructure code including authentication, dependency injection, and testing.
+└── infra		# Contains infrastructure code dependency injection, and testing.
     ├── di
     │   └── providers.py
     └── tests
         ├── conftest.py
         └── domain
-            ├── test_user_model.py
             └── usecases
-                ├── test_get_user_info.py
-                ├── test_get_user_list.py
-                ├── test_login.py
-                └── test_register.py
+                └── test_add_new_note.py
 
 ```
 
@@ -89,21 +82,21 @@ First, let's focus on the inner circle which is encompasses the domain, and we w
 Start by defining the use case that represents the business operation you want to perform.
 
 ```python
-class CreateNoteUseCase(CommandUseCase[CreateNoteCommand]):
+class AddNewNoteUseCase(CommandUseCase[AddNewNoteCommand]):
 
     @inject
     def __init__(self, note_repo: AbstractNoteRepo):
         self.note_repo = note_repo
 
-    async def execute(self, command: CreateNoteCommand) -> NoteModel:
-        note = NoteModel(title=command.title, content=command.content, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
+    async def execute(self, command: AddNewNoteCommand) -> NoteModel:
+        note = NoteModel(title=command.title, content=command.content)
         return await self.note_repo.create(note)
 ```
 
 * Within the use case, define the command that represents the action you want to perform.
 
 ```python
-class CreateNoteCommand(Command):
+class AddNewNoteCommand(Command):
     title: str
     content: str
 ```
@@ -120,8 +113,6 @@ class NoteModel(BaseModel):
     id: int
     title: str
     content: str
-    created_at: datetime
-    updated_at: datetime
 ```
 
 #### 3. Define the data provider interface
@@ -151,12 +142,12 @@ Before implementing the data storage, write tests for the use case. Mock the rep
 ```python
 from unittest.mock import Mock, AsyncMock
 
-def test_create_note_use_case():
+def test_add_new_note_use_case():
     mock_repo = Mock(AbstractNoteRepo)
-    mock_repo.create = AsyncMock(return_value=NoteModel(id=1, title="Test", content="Test content", created_at=datetime.utcnow(), updated_at=datetime.utcnow()))
+    mock_repo.create = AsyncMock(return_value=NoteModel(id=1, title="Test", content="Test content")
 
-    use_case = CreateNoteUseCase(mock_repo)
-    command = CreateNoteCommand(title="Test", content="Test content")
+    use_case = AddNewNoteUseCase(mock_repo)
+    command = AddNewNoteCommand(title="Test", content="Test content")
 
     result = asyncio.run(use_case.execute(command))
 
@@ -176,8 +167,6 @@ class Note(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
     content = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 # thisapp.services.note.dataproviders.alchemy.repositories
 
@@ -193,7 +182,6 @@ def map_note_to_domain_model(orm_note: Note) -> NoteModel:
         id=orm_note.id,
         title=orm_note.title,
         content=orm_note.content,
-        # ... 
     )
 
 class NoteRepo(AbstractNoteRepo):
@@ -282,7 +270,7 @@ class NotesRouter(Routable):
 ## controllers.py
 from injector import inject
 
-from thisapp.services.note.domain.usecases.create_note import CreateNoteCommand, CreateNoteUseCase
+from thisapp.services.note.domain.usecases.create_note import AddNewNoteCommand, AddNewNoteUseCase
 from thisapp.services.note.domain.usecases.get_note import GetNoteCommand, GetNoteUseCase
 from thisapp.services.note.entrypoints.rest.notes.presenters import NotePresenter
 from thisapp.services.note.entrypoints.rest.notes.requests import CreateNoteRequest
@@ -293,7 +281,7 @@ class NotesController:
     def __init__(
         self,
         presenter: NotePresenter,
-        create_note_use_case: CreateNoteUseCase,
+        create_note_use_case: AddNewNoteUseCase,
         get_note_use_case: GetNoteUseCase,
     ):
         self.presenter = presenter
@@ -302,7 +290,7 @@ class NotesController:
 
     async def create(self, request: CreateNoteRequest) -> NoteResponse:
         note = await self.create_note_use_case.execute(
-            CreateNoteCommand(title=request.title, content=request.content)
+            AddNewNoteCommand(title=request.title, content=request.content)
         )
         return self.presenter.present(note)
 
