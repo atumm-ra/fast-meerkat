@@ -55,9 +55,16 @@ To create the previous structure we can use the following command:
 make new-svc <service-name>
 ```
 
-In this tutorial we are using thisapp as a root namespace, use anything you see fit.
 
 ## Tutorial: Notes Service in Clean Architecture
+
+**Content Overview:**
+
+1. **Domain:** This section explains the core business logic, including defining use cases, domain models, data provider interfaces, and testing the use cases.
+2. **Implementing a Data Provider (SQLAlchemy):** This part provides a step-by-step guide on how to implement a data provider using SQLAlchemy.
+3. **Implementing a RESTful Interface:** This section dives into the entry points of the system, explaining how to set up routers, controllers, presenters, requests, and responses.
+4. **Configurations:** The final part ties everything together, discussing dependency injection, configurations specific to the Note service, and how to integrate the Note service into the main app.
+
 
 ### Part 1: Domain
 
