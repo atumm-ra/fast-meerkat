@@ -1,12 +1,26 @@
 # Fast Meerkat - Overview
 
+- [Fast Meerkat - Overview](#fast-meerkat---overview)
+  - [Tutorial: Notes Service in Clean Architecture](#tutorial-notes-service-in-clean-architecture)
+    - [Part 1: Domain](#part-1-domain)
+      - [1. Define the UseCase](#1-define-the-usecase)
+      - [2. Define the Domain Model](#2-define-the-domain-model)
+      - [3. Define the data provider interface](#3-define-the-data-provider-interface)
+      - [4. Test the UseCase](#4-test-the-usecase)
+    - [Part 2: Implementing a Data Provider (SQLAlchemy)](#part-2-implementing-a-data-provider-sqlalchemy)
+    - [Part 3: Implementing a RESTful Interface](#part-3-implementing-a-restful-interface)
+      - [REST Directory Structure:](#rest-directory-structure)
+      - [Implementing the REST interface with FastAPI:](#implementing-the-rest-interface-with-fastapi)
+    - [Part 4: Configurations](#part-4-configurations)
+      - [Dependency Injection for the Note Service:](#dependency-injection-for-the-note-service)
+
+
 This is a slightly modified architecture driven from clean architecture, is focused on the innermost layer as a unit called the domain layer
 
 Contains:
 - Entities/Models
 - Use Cases
 - Interface Adapters
-
 
 This is how the dependencies are linked, from the outermost (infrastructure) to the innermost (domain)
 
@@ -208,7 +222,7 @@ class NoteRepo(AbstractNoteRepo):
 
 Let's zoom in on the entrypoints part of the system, as you may know, these entrypoints, expose the applications' features through interfaces, whether rest, cli, workers ...etc.
 
-### Directory Structure:
+#### REST Directory Structure:
 
 ```
 thisapp/services/note/entrypoints/rest
@@ -222,7 +236,7 @@ thisapp/services/note/entrypoints/rest
 
 This structure represents a service with a REST resource for notes.
 
-### Step-by-step Implementation:
+#### Implementing the REST interface with FastAPI:
 
 1. **Router**: This will define the REST routes and delegate the actual work to the controller.
 
@@ -337,7 +351,7 @@ class NoteResponse(BaseModel):
 
 In this part we'll glue everything together, using injector and buti, defining configurations like DB URL...etc
 
-### Dependency Injection for the Note Service:
+#### Dependency Injection for the Note Service:
 
 1. **Providers for the Note Service**:
 
