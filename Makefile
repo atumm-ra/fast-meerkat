@@ -8,6 +8,10 @@ COMPOSE=docker-compose
 help:		   		## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
+checkout-dev:
+	git submodule init
+	git submodule update
+	git submodule foreach 'git checkout dev && git pull origin dev'
 
 # containers
 
