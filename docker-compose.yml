@@ -15,6 +15,7 @@ services:
       - mongo
     volumes:
       - ./atumm:/home/atumm
+      - ./thisapp:/home/thisapp
     logging:
       driver: "json-file"
       options:
