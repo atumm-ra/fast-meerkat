@@ -64,7 +64,7 @@ install:
 	pdm sync
 
 test:					## run tests
-	STAGE=test pdm run pytest --capture=no -cov --cov-report html
+	pdm install && STAGE=test pdm run pytest --capture=no -cov --cov-report html
 
 testf:					## run test filtered by pattern
 	STAGE=test pdm run pytest -k $(TARGET_ARGS)

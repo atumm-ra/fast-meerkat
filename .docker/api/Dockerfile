@@ -17,8 +17,8 @@ WORKDIR /home
 COPY --from=builder /usr/local/bin/dockerize /usr/local/bin/dockerize
 
 COPY ./ /home
+COPY ./.env /home/
 
-ENV STAGE=dev
 # deps
 RUN pip install --upgrade pip
 RUN pip install pdm

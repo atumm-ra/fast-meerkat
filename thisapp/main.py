@@ -1,21 +1,20 @@
 import uvicorn
-from atumm.core.infra.config import Config, configure
 from atumm.extensions.buti.components.config import ConfigComponent
 from atumm.extensions.buti.keys import AtummContainerKeys
-from atumm.extensions.fastapi.components import AuthJWTComponent, FastAPIComponent
+from atumm.extensions.config import configure
+from atumm.extensions.fastapi.components import FastAPIComponent
 from atumm.services.health.infra.buti import HealthServiceComponent
-from atumm.services.user import UserConfig
 from atumm.services.user.infra.buti import UserServiceComponent
 from buti import Bootloader, ButiStore
 
-from thisapp.config import AppConfig
+from thisapp.init.buti.beanie import BeanieComponent
 from thisapp.init.buti.injector import InjectorComponent
 
 app_components = [
     ConfigComponent(),
     InjectorComponent(),
     FastAPIComponent(),
-    AuthJWTComponent(),
+    BeanieComponent(),
     UserServiceComponent(),
     HealthServiceComponent(),
 ]

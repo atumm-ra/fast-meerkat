@@ -13,24 +13,28 @@ dependencies = [
     "ujson<6.0.0,>=5.4.0",
     "click<9.0.0,>=8.1.3",
     "greenlet==1.1.3",
-    "beanie>=1.18.0",
+    "beanie>=1.21.0",
     "motor>=3.1.2",
     "asyncio>=3.4.3",
     "pymongo>=4.3.3",
     "uvloop>=0.17.0",
     "starlette>=0.26.1",
-    "fastapi>=0.95.1",
-    "pydantic[dotenv,email]>=1.10.11",
+    "fastapi>=0.103.1",
+    "pydantic>=2.3.0",
     "asgiref>=3.6.0",
     "injector>=0.20.1",
     "py-bcrypt>=0.4",
-    "fastapi-jwt-auth>=0.5.0",
     "buti @ git+https://github.com/atumm-org/buti.git@master",
     "python-dotenv>=1.0.0",
     "atumm-core @ file:///${PROJECT_ROOT}/atumm-ext/atumm-core",
     "atumm-extensions @ file:///${PROJECT_ROOT}/atumm-ext/atumm-extensions",
     "atumm-service-health @ file:///${PROJECT_ROOT}/atumm-ext/atumm-services-health",
     "atumm-service-user @ file:///${PROJECT_ROOT}/atumm-ext/atumm-services-user",
+    "pydantic-settings>=2.0.3",
+    "email-validator>=2.0.0.post2",
+    "fastapi-restful @ git+https://github.com/omars44/FastApi-RESTful.git@exclude-router-constructor",
+    "pyseto>=1.7.4",
+    "sqlalchemy>=2.0.21",
 ]
 
 
@@ -61,6 +65,7 @@ dev = [
     "faker>=19.2.0",
     "python-dateutil>=2.8.2",
     "typer>=0.9.0",
+    "bump-pydantic>=0.7.0",
 ]
 
 [tool.pdm.build]
