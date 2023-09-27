@@ -13,6 +13,7 @@ ENV STAGE=dev
 WORKDIR /home
 
 COPY ./ /home/
+COPY ./.env /home/
 RUN pip install --upgrade pip
 RUN pip install pdm
 

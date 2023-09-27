@@ -8,6 +8,10 @@ COMPOSE=docker-compose
 help:		   		## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
+checkout-dev:
+	git submodule init
+	git submodule update
+	git submodule foreach 'git checkout dev && git pull origin dev'
 
 # containers
 
@@ -48,9 +52,11 @@ clean-restart: 			## Stop, Rebuild and start a specific container(usage: make cl
 # local
 format:
 	@sh -c " \
+		pdm run autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place thisapp/**; \
 		pdm run ssort thisapp/**; \
 		pdm run isort thisapp/**; \
 		pdm run black thisapp/**; \
+		pdm run autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place atumm-ext/**; \
 		pdm run ssort atumm-ext/**; \
 		pdm run isort atumm-ext/**; \
 		pdm run black atumm-ext/**; \
@@ -60,7 +66,7 @@ install:
 	pdm sync
 
 test:					## run tests
-	STAGE=test pdm run pytest --capture=no -cov --cov-report html
+	pdm install && STAGE=test pdm run pytest --capture=no -cov --cov-report html
 
 testf:					## run test filtered by pattern
 	STAGE=test pdm run pytest -k $(TARGET_ARGS)

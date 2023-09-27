@@ -1,10 +1,10 @@
 import os
 
-from atumm.core.infra.config import Config, configure
 from atumm.extensions.buti.keys import AtummContainerKeys
+from atumm.extensions.config import Config, configure
 from atumm.services.user import UserConfig  # to make sure UserConfig is registered
 from buti.core import BootableComponent, ButiStore
-from injector import Module, provider, singleton
+from injector import Module, provider
 
 
 @configure
@@ -28,10 +28,10 @@ config = configure.build(env_file=env_file)
 
 
 class ConfigProvider(Module):
-    @singleton
     @provider
     def provide(self) -> Config:
-        return config
+        env_file = ".env" if os.environ.get("STAGE") != "test" else ".env.test"
+        return configure.build(env_file=env_file)
 
 
 class ConfigComponent(BootableComponent):
