@@ -1,4 +1,3 @@
-from atumm.extensions.di.resolver import DependencyResolver
 from atumm.services.user.infra.di.providers import user_providers
 from injector import Injector
 

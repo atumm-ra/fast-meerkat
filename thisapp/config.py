@@ -4,7 +4,7 @@ from atumm.extensions.buti.keys import AtummContainerKeys
 from atumm.extensions.config import Config, configure
 from atumm.services.user import UserConfig  # to make sure UserConfig is registered
 from buti.core import BootableComponent, ButiStore
-from injector import Module, provider, singleton
+from injector import Module, provider
 
 
 @configure

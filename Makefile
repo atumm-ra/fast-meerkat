@@ -52,9 +52,11 @@ clean-restart: 			## Stop, Rebuild and start a specific container(usage: make cl
 # local
 format:
 	@sh -c " \
+		pdm run autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place thisapp/**; \
 		pdm run ssort thisapp/**; \
 		pdm run isort thisapp/**; \
 		pdm run black thisapp/**; \
+		pdm run autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place atumm-ext/**; \
 		pdm run ssort atumm-ext/**; \
 		pdm run isort atumm-ext/**; \
 		pdm run black atumm-ext/**; \
