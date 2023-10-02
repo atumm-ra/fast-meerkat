@@ -1,7 +1,7 @@
 from atumm.extensions.beanie import init_my_beanie
 from atumm.extensions.buti.keys import AtummContainerKeys
 from atumm.extensions.config import Config
-from atumm.services.user.dataproviders.beanie.models import User
+from atumm.services.user.dataproviders.beanie.entities import UserDocument
 from buti import BootableComponent, ButiStore
 from fastapi import FastAPI
 from injector import Injector
@@ -18,7 +18,7 @@ class BeanieComponent(BootableComponent):
 
         @app.on_event("startup")
         async def beanie_startup():
-            await init_my_beanie(beanie_client, config.MONGO_DB, [User])
+            await init_my_beanie(beanie_client, config.MONGO_DB, [UserDocument])
 
         @app.on_event("shutdown")
         async def beanie_shutdown():
