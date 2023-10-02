@@ -50,7 +50,7 @@ clean-restart: 			## Stop, Rebuild and start a specific container(usage: make cl
 
 
 # local
-format:
+format:				## run autoflake, ssort, isort, black on all directories
 	@sh -c " \
 		pdm run autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place thisapp/**; \
 		pdm run ssort thisapp/**; \
@@ -62,7 +62,15 @@ format:
 		pdm run black atumm-ext/**; \
 	"
 
-install:
+format-dir:			## run autoflake, ssort, isort, black on a specific directory
+	@sh -c " \
+		pdm run autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place $(TARGET_ARGS)/**; \
+		pdm run ssort $(TARGET_ARGS)/**; \
+		pdm run isort $(TARGET_ARGS)/**; \
+		pdm run black $(TARGET_ARGS)/**; \
+	"
+
+install:			## install dependencies (from lock file)
 	pdm sync
 
 test:					## run tests
