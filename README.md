@@ -1,9 +1,11 @@
 # Fast Meerkat - Overview
 
 - [Fast Meerkat - Overview](#fast-meerkat---overview)
-  - [Tutorial: Notes Service in Clean Architecture](#tutorial-notes-service-in-clean-architecture)
+    - [Packages in use (dependencies)](#packages-in-use-dependencies)
+    - [Atumm Packages](#atumm-packages)
+  - [Tutorial: A Simple Notes Service in Clean Architecture](#tutorial-a-simple-notes-service-in-clean-architecture)
     - [Part 1: Domain](#part-1-domain)
-      - [1. Define the UseCase](#1-define-the-usecase)
+      - [1. Define the UseCases](#1-define-the-usecases)
       - [2. Define the Domain Model](#2-define-the-domain-model)
       - [3. Define the data provider interface](#3-define-the-data-provider-interface)
       - [4. Test the UseCase](#4-test-the-usecase)
@@ -15,12 +17,35 @@
       - [Dependency Injection for the Note Service:](#dependency-injection-for-the-note-service)
 
 
-This is a slightly modified architecture driven from clean architecture, is focused on the innermost layer as a unit called the domain layer
+This is just a pool of ideas, feel free to fork and add your own, tweak as needed.
 
-Contains:
-- Entities/Models
-- Use Cases
-- Interface Adapters
+### Packages in use (dependencies)
+|     |     |
+| --- | --- |
+| **Name** | **Purpose** |
+| injector | Dependency Injection |
+| pydantic | Object validation |
+| pydantic-settings | Configuration Management |
+| fastapi | ASGI Framework |
+| fastapi-rest | Class-Based Views for FastAPI |
+| beanie | MongoDB ODM |
+|  motor   | coroutine-based API for non-blocking access to MongoDB    |
+|  PyJWT   |   encode and decode JSON Web Tokens (JWT)  |
+|   pyseto  |   encode and decode PASETO Tokens  |
+|   buti  |  A Service Registry and Bootloader for the app   |
+
+* * *
+### Atumm Packages
+|     |     |
+| --- | --- |
+| Name | Purpose |
+|  atumm-core   |  Interfaces/Protocols definitions for clean architecture  |
+|  atumm-extensions   | Any code that extends other packages from the mentioned above, as well as infrastructure related code that is shared among all services    |
+|  atumm-services-health   | A small health-check service (REST)    |
+|  atumm-services-user   | Auth and User management    |
+|  ...   | Your service here    |
+
+
 
 This is how the dependencies are linked, from the outermost (infrastructure) to the innermost (domain)
 
@@ -30,30 +55,38 @@ This is how the dependencies are linked, from the outermost (infrastructure) to 
 
 We follow this directory structure, later in this document, a detailed tutorial about how to implement a notes service as an example, explaining each aspect with granular details...
 ```
-thisapp/services/note
+thisapp/services/notes
 
-├── domain			# the innermost layer (domain logic)
-│   ├── models.py
-│   ├── repositories.py
+├── domain			    # the innermost layer (domain logic)
+│   ├── entities.py
+│   ├── interfaces.py   # defines the contracts which the other layers develop adapters for, example UserRepositoryInterface -> dataproviders.orm.UserRepository
 │   ├── exceptions.py
 │   └── usecases
-│       └── add_new_note.py
+│       ├── add_new_note.py
+│       └── find_notes.py
 
 ├── dataproviders		# concrete data providers
 │   └── alchemy
-│       ├── models.py
+│       ├── entities.py
 │       └── repositories.py
 
-├── entrypoints		 # entrypoints of the service, such as RESTful API endpoints, cli...etc
+├── entrypoints		    # entrypoints of the service, such as RESTful API endpoints, cli...etc
+│   └── rest
+│       ├── controllers.py
+│       ├── presenters.py
+│       ├── responses.py
+│       └── routers.py
 
-└── infra		# Contains infrastructure code dependency injection, and testing.
+└── infra		        # Contains infrastructure code (dependency injection, configuration requirements and testing.)
+    ├── config.py
     ├── di
     │   └── providers.py
     └── tests
         ├── conftest.py
         └── domain
             └── usecases
-                └── test_add_new_note.py
+                ├── test_add_new_note.py
+                └── test_find_notes.py
 
 ```
 
@@ -63,7 +96,7 @@ make new-svc <service-name>
 ```
 
 
-## Tutorial: Notes Service in Clean Architecture
+## Tutorial: A Simple Notes Service in Clean Architecture
 
 **Content Overview:**
 
@@ -77,28 +110,50 @@ make new-svc <service-name>
 
 First, let's focus on the inner circle which is encompasses the domain, and we will go from inner to outer layers as this tutorial progresses
 
-#### 1. Define the UseCase
+#### 1. Define the UseCases
 
-Start by defining the use case that represents the business operation you want to perform.
+We'll start by defining the use cases
+1. Add a new note
+2. find notes
+
+The Command/Query Separation is just for further clarity (later to build/integrate a message bus)
 
 ```python
+# thisapp/services/notes/domain/usecases/add_new_note.py
+from atumm.core.types import Query, QueryUseCase
+
+from thisapp.services.notes.domain.interfaces import NotesRepositoryInterface
+from thisapp.services.notes.domain.models import Note
+
+class AddNewNoteCommand(Command):
+    title: str
+    content: str
+
 class AddNewNoteUseCase(CommandUseCase[AddNewNoteCommand]):
 
+    @inject
+    def __init__(self, notes_repo: NotesRepositoryInterface):
+        self.notes_repo = notes_repo
+
+    async def execute(self, command: AddNewNoteCommand) -> Not:
+        note = Note(title=command.title, content=command.content)
+        return await self.notes_repo.create(note)
+
+
+# thisapp/services/notes/domain/usecases/find_notes.py
+from typing import List, Optional
+
+class FindNotesQuery(Query):
+    search_term: Optional[str]
+
+class FindNotesUseCase(QueryUseCase[FindNotesQuery]):
     @inject
     def __init__(self, note_repo: AbstractNoteRepo):
         self.note_repo = note_repo
 
-    async def execute(self, command: AddNewNoteCommand) -> NoteModel:
-        note = NoteModel(title=command.title, content=command.content)
-        return await self.note_repo.create(note)
-```
+    async def execute(self, query: FindNotesQuery) -> List[Note]:
+        return await self.note_repo.find(query.search_term)
 
-* Within the use case, define the command that represents the action you want to perform.
-
-```python
-class AddNewNoteCommand(Command):
-    title: str
-    content: str
 ```
 
 #### 2. Define the Domain Model
@@ -106,10 +161,10 @@ class AddNewNoteCommand(Command):
 Define the domain model that represents the core business object in your application.
 
 ```python
+# thisapp/services/notes/domain/entities.py
 from pydantic import BaseModel
-from datetime import datetime
 
-class NoteModel(BaseModel):
+class Note(BaseModel):
     id: int
     title: str
     content: str
@@ -120,31 +175,36 @@ class NoteModel(BaseModel):
 Here we define the interface that represents the operations you can perform on this repository
 
 ```python
+# thisapp/services/notes/domain/interfaces.py
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, Protocol
 
-class AbstractNoteRepo(ABC):
+class NotesRepositoryInterface(Protocol):
 
-    @abstractmethod
-    async def create(self, note: NoteModel) -> NoteModel:
-        pass
+    async def create(self, note: Note) -> Note:
+        ...
 
-    @abstractmethod
-    async def find_by_id(self, note_id: int) -> Optional[NoteModel]:
-        pass
+    async def find(self, query: str) -> List[Note]:
+        ...
 
 ```
 
 #### 4. Test the UseCase
 
-Before implementing the data storage, write tests for the use case. Mock the repository to simulate the behavior of the data storage.
+Before implementing the data storage, write tests for the use case, mocking the repository to simulate the behavior of the data storage.
 
 ```python
+# thisapp/services/notes/infra/tests/domain/usecases/test_add_new_note.py
+
+import asyncio
 from unittest.mock import Mock, AsyncMock
+from thisapp.services.notes.domain.interfaces import NotesRepositoryInterface
+from thisapp.services.notes.domain.models import Note
+from thisapp.services.notes.domain.usecases.add_new_note import AddNewNoteUseCase, AddNewNoteCommand
 
 def test_add_new_note_use_case():
-    mock_repo = Mock(AbstractNoteRepo)
-    mock_repo.create = AsyncMock(return_value=NoteModel(id=1, title="Test", content="Test content")
+    mock_repo = Mock(spec=NotesRepositoryInterface)
+    mock_repo.create = AsyncMock(return_value=Note(id=1, title="Test", content="Test content"))
 
     use_case = AddNewNoteUseCase(mock_repo)
     command = AddNewNoteCommand(title="Test", content="Test content")
@@ -153,14 +213,57 @@ def test_add_new_note_use_case():
 
     assert result.id == 1
     assert result.title == "Test"
+
 ```
+
+
+```python
+# thisapp/services/notes/infra/tests/domain/usecases/test_find_notes.py
+from unittest.mock import Mock, AsyncMock
+import asyncio
+from thisapp.services.notes.domain.interfaces import NotesRepositoryInterface
+from thisapp.services.notes.domain.models import Note
+from thisapp.services.notes.domain.usecases.find_notes import FindNotesUseCase, FindNotesQuery
+
+def test_find_notes_use_case_no_search_term():
+    mock_repo = Mock(spec=NotesRepositoryInterface)
+    mock_repo.find = AsyncMock(return_value=[Note(id=1, title="Test", content="Test content")])
+
+    use_case = FindNotesUseCase(mock_repo)
+    query = FindNotesQuery(search_term=None)
+
+    result = asyncio.run(use_case.execute(query))
+
+    assert len(result) == 1
+    assert result[0].id == 1
+    assert result[0].title == "Test"
+
+def test_find_notes_use_case_with_search_term():
+    mock_repo = Mock(spec=NotesRepositoryInterface)
+    mock_repo.find = AsyncMock(return_value=[Note(id=2, title="Very Long Note", content="Content of a Very Long Note")])
+
+    use_case = FindNotesUseCase(mock_repo)
+    query = FindNotesQuery(search_term="Very Long")
+
+    result = asyncio.run(use_case.execute(query))
+
+    assert len(result) == 1
+    assert result[0].id == 2
+    assert result[0].title == "Very Long Note"
+
+```
+
+
 
 ### Part 2: Implementing a Data Provider (SQLAlchemy) 
 
-Depending on your choice of data storage, implement the repository. Here's an example using SQLAlchemy:
 
 ```python
-# thisapp.services.note.dataproviders.alchemy.models
+# thisapp/services/notes/dataproviders/alchemy/entities.py
+
+from atumm.extensions.alchemy import Base
+from sqlalchemy import Column, Integer, String
+
 class Note(Base):
     __tablename__ = "notes"
 
@@ -168,15 +271,16 @@ class Note(Base):
     title = Column(String, index=True)
     content = Column(String)
 
-# thisapp.services.note.dataproviders.alchemy.repositories
+# thisapp/services/notes/dataproviders/alchemy/repositories.py
 
-from thisapp.services.note.domain.repositories import AbstractNoteRepo
-from thisapp.services.note.domain.models import NoteModel
-from thisapp.services.note.dataproviders.alchemy.models import Note
+from thisapp.services.notes.domain.interfaces import NotesRepositoryInterface
+from thisapp.services.notes.domain.models import NoteModel
+from thisapp.services.notes.dataproviders.alchemy.models import Note
 from atumm.extensions.alchemy import AsyncSessionFactory
 from injector import inject
 from typing import Optional
 
+# todo review
 def map_note_to_domain_model(orm_note: Note) -> NoteModel:
     return NoteModel(
         id=orm_note.id,
@@ -184,7 +288,7 @@ def map_note_to_domain_model(orm_note: Note) -> NoteModel:
         content=orm_note.content,
     )
 
-class NoteRepo(AbstractNoteRepo):
+class NoteRepo(NotesRepositoryInterface):
 
     @inject
     def __init__(self, session_factory: AsyncSessionFactory):
@@ -198,10 +302,12 @@ class NoteRepo(AbstractNoteRepo):
             await session.refresh(new_note)
             return map_note_to_domain_model(new_note)
 
-    async def find_by_id(self, note_id: int) -> Optional[NoteModel]:
+    async def find(self, query: str) -> List[NoteModel]:
         async with self.session_factory.new_session() as session:
-            orm_note = await session.query(Note).filter(Note.id == note_id).one_or_none()
-            return map_note_to_domain_model(orm_note) if orm_note else None
+            orm_notes = await session.query(Note).filter(
+                or_(Note.title.ilike(f"%{query}%"), Note.content.ilike(f"%{query}%"))
+            ).all()
+            return [map_note_to_domain_model(orm_note) for orm_note in orm_notes]
 ```
 
 ---
@@ -213,13 +319,11 @@ Let's zoom in on the entrypoints part of the system, as you may know, these entr
 #### REST Directory Structure:
 
 ```
-thisapp/services/note/entrypoints/rest
-├── notes
-│   ├── controllers.py
-│   ├── presenters.py
-│   ├── requests.py
-│   ├── responses.py
-│   └── routers.py
+thisapp/services/notes/entrypoints/rest
+│                                   ├── controllers.py
+│                                   ├── presenters.py
+│                                   ├── responses.py
+│                                   └── routers.py
 ```
 
 This structure represents a service with a REST resource for notes.
@@ -229,52 +333,51 @@ This structure represents a service with a REST resource for notes.
 1. **Router**: This will define the REST routes and delegate the actual work to the controller.
 
 ```python
-## routers.py
-from classy_fastapi import Routable, post, get
+# thisapp/services/notes/entrypoints/rest/routers.py
 from injector import inject
 
-from thisapp.services.note.entrypoints.rest.notes.controllers import NotesController
-from thisapp.services.note.entrypoints.rest.notes.requests import CreateNoteRequest
-from thisapp.services.note.entrypoints.rest.notes.responses import NoteResponse
+from thisapp.services.notes.entrypoints.rest.notes.controllers import NotesController
+from thisapp.services.notes.entrypoints.rest.notes.responses import NoteResponse
+from fastapi_restful.cbv import cbv
+# todo import here
+# AddNewNoteCommand
 
-class NotesRouter(Routable):
+router = APIRouter(prefix="/notes")
+
+
+@cbv(router)
+class NotesRouter:
     @inject
     def __init__(self, controller: NotesController):
-        super().__init__(prefix="/notes")
         self.controller = controller
 
-    @post(
+    @router.post(
         "/",
         responses={
             "200": {"model": NoteResponse},
             "400": {"model": RuntimeExceptionResponse},
         },
     )
-    async def create_note(self, request: CreateNoteRequest) -> NoteResponse:
-        return await self.controller.create(request)
+    async def add_new_note(self, command: AddNewNoteCommand) -> NoteResponse:
+        return await self.controller.add_new_note(command)
 
-    @get(
-        "/{note_id}",
-        responses={
-            "200": {"model": NoteResponse},
-            "404": {"model": RuntimeExceptionResponse},
-        },
-    )
-    async def get_note(self, note_id: int) -> NoteResponse:
-        return await self.controller.get_by_id(note_id)
+    #todo add notes action
+
+notes_router = router
+
 ```
 
 2. **Controller**: Handles business logic and returns a final representation for the router calls.
 
 ```python
-## controllers.py
+# thisapp/services/notes/entrypoints/rest/controllers.py
 from injector import inject
 
-from thisapp.services.note.domain.usecases.create_note import AddNewNoteCommand, AddNewNoteUseCase
-from thisapp.services.note.domain.usecases.get_note import GetNoteCommand, GetNoteUseCase
-from thisapp.services.note.entrypoints.rest.notes.presenters import NotePresenter
-from thisapp.services.note.entrypoints.rest.notes.requests import CreateNoteRequest
-from thisapp.services.note.entrypoints.rest.notes.responses import NoteResponse
+from thisapp.services.notes.domain.usecases.create_note import AddNewNoteCommand, AddNewNoteUseCase
+from thisapp.services.notes.domain.usecases.get_note import GetNoteCommand, FindNotesUseCase
+from thisapp.services.notes.entrypoints.rest.notes.presenters import NotePresenter
+from thisapp.services.notes.entrypoints.rest.notes.requests import CreateNoteRequest
+from thisapp.services.notes.entrypoints.rest.notes.responses import NoteResponse
 
 class NotesController:
     @inject
@@ -282,53 +385,41 @@ class NotesController:
         self,
         presenter: NotePresenter,
         create_note_use_case: AddNewNoteUseCase,
-        get_note_use_case: GetNoteUseCase,
+        find_notes_use_case: FindNotesUseCase,
     ):
         self.presenter = presenter
         self.create_note_use_case = create_note_use_case
-        self.get_note_use_case = get_note_use_case
+        self.find_notes_use_case = find_notes_use_case
 
-    async def create(self, request: CreateNoteRequest) -> NoteResponse:
-        note = await self.create_note_use_case.execute(
-            AddNewNoteCommand(title=request.title, content=request.content)
-        )
+    async def add_new_note(self, command: AddNewNoteCommand) -> NoteResponse:
+        note = await self.create_note_use_case.execute(command)
         return self.presenter.present(note)
 
-    async def get_by_id(self, note_id: int) -> NoteResponse:
-        note = await self.get_note_use_case.execute(GetNoteCommand(id=note_id))
-        return self.presenter.present(note)
+    async def find_notes(self, query: FindNotesQuery) -> List[NoteResponse]:
+        notes = await self.find_notes_use_case.execute(query)
+        return self.presenter.present_list(notes)
+
 ```
 
 3. **Presenter**: Present Business Objects.
 
 ```python
-## presenters.py
-from atumm.core.presenter import AbstractPresenter
-from thisapp.services.note.entrypoints.rest.notes.responses import NoteResponse
+# thisapp/services/notes/entrypoints/rest/presenters.py
+from atumm.core.types import AbstractPresenter
+from thisapp.services.notes.entrypoints.rest.notes.responses import NoteResponse
 
 class NotePresenter(AbstractPresenter[NoteModel, NoteResponse]):
     def present(self, note: NoteModel) -> NoteResponse:
         return NoteResponse(id=note.id, title=note.title, content=note.content)
 ```
 
-4. **Requests**: Pydantic objects to be received.
+1. **Responses**: Response models, based on Pydantic
 
 ```python
-## requests.py
+# thisapp/services/notes/entrypoints/rest/responses.py
 from pydantic import BaseModel, Field
 
-class CreateNoteRequest(BaseModel):
-    title: str = Field(..., description="Note Title")
-    content: str = Field(..., description="Note Content")
-```
-
-5. **Responses**: Pydantic objects for the response models.
-
-```python
-## responses.py
-from pydantic import BaseModel, Field
-
-class NoteResponse(BaseModel):
+class NoteViewModel(BaseModel):
     id: int = Field(..., description="Note ID")
     title: str = Field(..., description="Note Title")
     content: str = Field(..., description="Note Content")
@@ -346,8 +437,8 @@ In this part we'll glue everything together, using injector and buti, defining c
 ```python
 # thisapp/services/note/infra/di/providers.py
 from atumm.core.infra.config import Config
-from thisapp.services.note.dataproviders.beanie.repositories import NoteRepo
-from thisapp.services.note.domain.repositories import AbstractNoteRepo
+from thisapp.services.notes.dataproviders.beanie.repositories import NoteRepo
+from thisapp.services.notes.domain.repositories import AbstractNoteRepo
 from injector import Binder, Module, singleton
 
 class NoteRepoProvider(Module):
@@ -382,7 +473,7 @@ REST router to the FastAPI app
 ```python
 # thisapp/services/note/infra/buti/__init__.py
 from atumm.extensions.buti.keys import AtummContainerKeys
-from thisapp.services.note.entrypoints.rest.notes.routers import NotesRouter
+from thisapp.services.notes.entrypoints.rest.notes import notes_router
 from buti import BootableComponent, ButiStore
 from fastapi import APIRouter, FastAPI
 from injector import Injector
@@ -390,29 +481,28 @@ from injector import Injector
 class NoteServiceComponent(BootableComponent):
     def boot(self, object_store: ButiStore):
         app: FastAPI = object_store.get(AtummContainerKeys.app)
-        injector_obj: Injector = object_store.get(AtummContainerKeys.injector)
 
-        note_router = injector_obj.get(NotesRouter)
-
-        note_api_router = APIRouter()
-        note_api_router.include_router(
-            note_router.router, prefix="/api/v1", tags=["Notes"]
+        notes_api_router = APIRouter()
+        notes_api_router.include_router(
+            notes_router, prefix="/api/v1", tags=["Notes"]
         )
         app.include_router(note_api_router)
 ```
 
-4. **Update Main App**:
+4. **Register the NoteServiceComponent into the app bootloader**:
 
-In `thisapp/main.py`, make sure to import the `NoteConfig` and add the `NoteServiceComponent` to the `app_components` list.
+In `thisapp/main.py`, make sure to add the `NoteServiceComponent` to the `app_components` list.
+
+Also import the `NoteConfig` if the service has configurations 
 
 ```python
 # thisapp/main.py
-from thisapp.services.note import NoteConfig
-from thisapp.services.note.infra.buti import NoteServiceComponent
+from thisapp.services.notes import NoteConfig
+from thisapp.services.notes.infra.buti import NoteServiceComponent
 
 # ... [rest of the imports] ...
 
 app_components.extend([NoteServiceComponent()])
 ```
 
-This setup ensures that the `Note` service is integrated into the main app
+This setup ensures that the notes service is integrated into the main app
