@@ -10,3 +10,6 @@
 [submodule "atumm-ext/atumm-extensions"]
 	path = atumm-ext/atumm-extensions
 	url = git@github.com:atumm-ra/atumm-extensions.git
+[submodule "atumm-ext/atumm-tool"]
+	path = atumm-ext/atumm-tool
+	url = git@github.com:atumm-ra/atumm-tool.git
