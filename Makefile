@@ -50,7 +50,7 @@ clean-restart: 			## Stop, Rebuild and start a specific container(usage: make cl
 
 
 # local
-format:
+format:				## run autoflake, ssort, isort, black on all directories
 	@sh -c " \
 		pdm run autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place thisapp/**; \
 		pdm run ssort thisapp/**; \
@@ -62,17 +62,25 @@ format:
 		pdm run black atumm-ext/**; \
 	"
 
-install:
+format-dir:			## run autoflake, ssort, isort, black on a specific directory
+	@sh -c " \
+		pdm run autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place $(TARGET_ARGS)/**; \
+		pdm run ssort $(TARGET_ARGS)/**; \
+		pdm run isort $(TARGET_ARGS)/**; \
+		pdm run black $(TARGET_ARGS)/**; \
+	"
+
+install:			## install dependencies (from lock file)
 	pdm sync
 
 test:					## run tests
 	pdm install && STAGE=test pdm run pytest --capture=no -cov --cov-report html
 
-testf:					## run test filtered by pattern
+testf:					## make testf jwt | run test filtered by pattern
 	STAGE=test pdm run pytest -k $(TARGET_ARGS)
 
-new-svc:
-	pdm run python atumm-ext/atumm-core/atumm/core/entrypoints/cli/commands.py create-service $(TARGET_ARGS)
+new-svc:			## make new-svc <service_name>
+	pdm run atumm-tool create-service $(TARGET_ARGS)
 
-new-rsc:			## create a new rest resource within a service (service_name, resource_name), ex: make new-resource user tokens
-	pdm run python atumm/core/entrypoints/cli/commands.py create-rest-resource $(TARGET_ARGS)
+new-rsc:			## make new-rsc <service> <resource_name> | create a new rest resource within a service (service_name, resource_name)
+	pdm run atumm-tool create-rest-resource $(TARGET_ARGS)

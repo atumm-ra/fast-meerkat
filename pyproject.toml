@@ -30,6 +30,7 @@ dependencies = [
     "atumm-extensions @ file:///${PROJECT_ROOT}/atumm-ext/atumm-extensions",
     "atumm-service-health @ file:///${PROJECT_ROOT}/atumm-ext/atumm-services-health",
     "atumm-service-user @ file:///${PROJECT_ROOT}/atumm-ext/atumm-services-user",
+    "atumm-tool @ file:///${PROJECT_ROOT}/atumm-ext/atumm-tool",
     "pydantic-settings>=2.0.3",
     "email-validator>=2.0.0.post2",
     "fastapi-restful @ git+https://github.com/omars44/FastApi-RESTful.git@exclude-router-constructor",
