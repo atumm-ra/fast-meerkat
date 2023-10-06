@@ -76,11 +76,11 @@ install:			## install dependencies (from lock file)
 test:					## run tests
 	pdm install && STAGE=test pdm run pytest --capture=no -cov --cov-report html
 
-testf:					## run test filtered by pattern
+testf:					## make testf jwt | run test filtered by pattern
 	STAGE=test pdm run pytest -k $(TARGET_ARGS)
 
-new-svc:
-	pdm run python atumm-ext/atumm-core/atumm/core/entrypoints/cli/commands.py create-service $(TARGET_ARGS)
+new-svc:			## make new-svc <service_name>
+	pdm run atumm-tool create-service $(TARGET_ARGS)
 
-new-rsc:			## create a new rest resource within a service (service_name, resource_name), ex: make new-resource user tokens
-	pdm run python atumm/core/entrypoints/cli/commands.py create-rest-resource $(TARGET_ARGS)
+new-rsc:			## make new-rsc <service> <resource_name> | create a new rest resource within a service (service_name, resource_name)
+	pdm run atumm-tool create-rest-resource $(TARGET_ARGS)
